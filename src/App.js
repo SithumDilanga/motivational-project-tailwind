@@ -12,6 +12,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './App.css';
 
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { fetchPosts, postsSelector } from './slices/postsSlice'
 
 
 
@@ -30,13 +34,40 @@ function NavBar() {
 
 
 function App() {
-  
+
+  const dispatch = useDispatch()
+  const { posts, loading, hasErrors } = useSelector(postsSelector)
+
+  useEffect(() => {
+    dispatch(fetchPosts())
+  }, [dispatch])
+
+  // error handling & map successful query data 
+  const renderRecipes = () => {
+    if (loading) return <p>Loading recipes...</p>
+    if (hasErrors) return <p>Cannot display recipes...</p>
+
+    return posts.map(post =>
+      <div key={post.username} className='tile'>
+        <h2>{post.username}</h2>
+        {/* <img src={recipe.strMealThumb} alt=''/> */}
+      </div>
+    )
+  }
+
   return (
     <Router>
       <Switch>
         <Route path="/daily-motivation" component={DailyMotivation}/>
         <div>
         <NavBar />
+
+        {/* <section>
+          <h1>Recipes</h1>
+          <div className='content'>
+            {renderRecipes()}
+          </div>
+        </section> */}
 
         {/* ----------- first view on mobile screens ---------*/}
 

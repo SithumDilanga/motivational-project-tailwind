@@ -43,15 +43,12 @@ function App() {
   }, [dispatch])
 
   // error handling & map successful query data 
-  const renderRecipes = () => {
+  const renderPosts = () => {
     if (loading) return <p>Loading recipes...</p>
     if (hasErrors) return <p>Cannot display recipes...</p>
 
-    return posts.map(post =>
-      <div key={post.username} className='tile'>
-        <h2>{post.username}</h2>
-        {/* <img src={recipe.strMealThumb} alt=''/> */}
-      </div>
+    return posts.map(post => 
+      <Post postData={post} />  
     )
   }
 
@@ -61,13 +58,6 @@ function App() {
         <Route path="/daily-motivation" component={DailyMotivation}/>
         <div>
         <NavBar />
-
-        {/* <section>
-          <h1>Recipes</h1>
-          <div className='content'>
-            {renderRecipes()}
-          </div>
-        </section> */}
 
         {/* ----------- first view on mobile screens ---------*/}
 
@@ -114,10 +104,13 @@ function App() {
             </div>
 
             {/* posts */}
-            <Post postData={postData[0]}/>
+
+            {renderPosts()}
+
+            {/* <Post postData={postData[0]}/>
             <Post postData={postData[1]}/>
             <Post postData={postData[2]}/>
-            <Post postData={postData[3]}/>
+            <Post postData={postData[3]}/> */}
           </div>
           <div className="hidden sm:block sm:order-1">
             <div className="grid-flow-col m-2">

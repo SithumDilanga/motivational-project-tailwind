@@ -3,6 +3,7 @@
 import img1 from './assets/img1.jpg';
 import tailwindLogo from './assets/tailwindLogo.png';
 import DailyMotivation from './daily_motivation.js';
+import UserProfile from './user_profile/user_profile';
 import postData from './fakeApiData';
 import Post from './home/post';
 import { FaBolt } from 'react-icons/fa'
@@ -21,13 +22,15 @@ import { fetchPosts, postsSelector } from './slices/postsSlice'
 
 function NavBar() {
   return (
-    <div className="flex gap-1 justify-between m-4">
-      <img src={tailwindLogo} className="w-12 h-6" />
-      <div className="flex gap-2 items-center">
-        <div className="text-base font-medium">Dear John</div>
-        <img src={img1} className="w-12 h-12 rounded-full object-cover object-center" />
+    <Link to="/user-profile">
+      <div className="flex gap-1 justify-between m-4">
+        <img src={tailwindLogo} className="w-12 h-6" />
+        <div className="flex gap-2 items-center">
+          <div className="text-base font-medium">Dear John</div>
+          <img src={img1} className="w-12 h-12 rounded-full object-cover object-center" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -56,6 +59,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/daily-motivation" component={DailyMotivation}/>
+        <Route path="/user-profile" component={UserProfile} />
         <div>
         <NavBar />
 

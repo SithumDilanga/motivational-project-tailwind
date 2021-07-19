@@ -3,8 +3,42 @@ import img3 from '../assets/img3.jpg';
 import img4 from '../assets/img4.jpg';
 import Tabs from "./tab_components/tabs"; 
 import TabContent from './tab_components/tab_content';
+import { useState } from "react";
+
+import ImgCrop from 'antd-img-crop';
+import { Upload } from 'antd';
+import 'antd/dist/antd.css';
 
 function UserProfile() {
+
+	const [imgUrl, setImgUrl] = useState({
+		url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+	});
+
+	const onChange = ({ imgUrl: newImgUrl }) => {
+    console.log(newImgUrl);
+    setImgUrl(newImgUrl);
+  };
+
+	const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+
+    if (imgWindow) {
+      imgWindow.document.write(image.outerHTML);
+    } else {
+      window.location.href = src;
+    }
+  };
 
 	return (
 		<div className="m-auto sm:w-8/12">
@@ -13,8 +47,22 @@ function UserProfile() {
 					<div className="relative">
 						<img src={img4} className="h-48 w-max rounded-t-lg object-cover object-center sm:h-64" />
 						<div className="pl-6">
-							<img src={img3} className="absolute top-2/3 w-28 h-28 rounded-full border-4 border-white object-cover object-center sm:w-32 sm:h-32"/>
+							<img src={imgUrl.url} className="absolute top-2/3 w-28 h-28 rounded-full border-4 border-white object-cover object-center sm:w-32 sm:h-32"/>
 						</div>
+						{/* <div className="ml-44">
+						<ImgCrop grid>
+								<Upload 
+									// action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+									listType="picture-card"
+        					// fileList={fileList}
+        					// onChange={onChange}
+        					onPreview={onPreview}
+									>
+										{'+ Upload'}
+									
+								</Upload>
+							</ImgCrop>
+						</div> */}
 					</div>
 					<div>  {/* name and tag*/}
 						<div className="mt-12 ml-10 text-xl font-bold">

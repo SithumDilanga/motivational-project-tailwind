@@ -17,3 +17,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "OtomanopeeOne";
+  src: local("OtomanopeeOne"),
+   url("./fonts/OtomanopeeOne-Regular.ttf") format("truetype");
+  font-weight: bold;
+  }

@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import './fonts/OtomanopeeOne-Regular.ttf';
+
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';
 import rootReducer from './slices'

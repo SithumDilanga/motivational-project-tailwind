@@ -7,12 +7,20 @@
 		@apply inline-block px-2 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold 
 	}
 
-	.btn-primary {
-		@apply text-white bg-brand-light shadow-lg sm:text-xl sm:hover:bg-brand-dark hover:bg-brand-dark hover:-translate-y-0.5 transform transition focus:ring-opacity-50 active:bg-brand-light
-	}
+	
 
 	.btn-secondary {
 		@apply hover:bg-gray-200 focus:ring-gray-300 focus:ring-opacity-50
 		active:bg-gray-400 text-gray-800
 	}
 }
+
+.font-face-gm {
+	font-family: "OtomanopeeOne";
+ }
+
+ .borderSpace {
+	 border-collapse: separate;
+	 border-bottom: 2px solid yellow;
+	 border-spacing: 10px;
+ }

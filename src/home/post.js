@@ -13,7 +13,7 @@ import 'react-awesome-slider/dist/styles.css';
   function Post({postData}) {
     return (
       <div>
-        <div className=" bg-white my-3 mx-1 rounded-lg sm:rounded-2xl shadow-lg">
+        <div className=" bg-white my-4 mx-1 rounded-lg sm:rounded-2xl shadow-lg">
           <div className="grid grid-flow-row">
             <div className="flex items-center ml-3 mt-3 sm:ml-6 sm:mt-6 mb-3">
               <img src={img1} className="w-12 h-12 rounded-full object-cover object-cente"/>

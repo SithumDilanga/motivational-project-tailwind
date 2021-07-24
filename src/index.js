@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './fonts/OtomanopeeOne-Regular.ttf';
+import './fonts/VarelaRound-Regular.ttf';
 
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';

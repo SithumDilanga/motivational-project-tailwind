@@ -8,7 +8,8 @@ module.exports = {
           primary: "#ffa500",
           secondary: "#ffae1a",
           third: "#ffc04d",
-        }
+        },
+        backdrop: "rgba(0, 0, 0, 0.5)"
       }
     },
   },

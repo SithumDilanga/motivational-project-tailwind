@@ -19,6 +19,10 @@
 	font-family: "OtomanopeeOne";
  }
 
+ .font-face-varela {
+	font-family: "VarelaRound";
+ }
+
  .borderSpace {
 	 border-collapse: separate;
 	 border-bottom: 2px solid yellow;

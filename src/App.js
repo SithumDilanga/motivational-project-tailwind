@@ -5,6 +5,7 @@ import tailwindLogo from './assets/tailwindLogo.png';
 import DailyMotivation from './daily_motivation.js';
 import UserProfile from './user_profile/user_profile';
 import SignUp from './authentication/sign_up';
+import Login from './authentication/log_in'; 
 import postData from './fakeApiData';
 import Post from './home/post';
 import { FaBolt } from 'react-icons/fa'
@@ -75,7 +76,7 @@ function NavBar({drawerClickHandler}) {
 
         </div>
         <Link to="/user-profile">
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center hover:text-brand-primary">
             <div className="text-base font-medium">Dear John</div>
             <img src={img1} className="w-11 h-11 rounded-full object-cover object-center" />
           </div>
@@ -133,6 +134,7 @@ function App() {
         <Route path="/daily-motivation" component={DailyMotivation}/>
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/sign-up" component={SignUp} />
+        <Route path="/login" component={Login} />
         <div>
         <NavBar drawerClickHandler={drawerToggleClickHandler} />
         {/* <NavDrawer drawerClickHandler={drawerToggleClickHandler} /> */}
@@ -203,10 +205,10 @@ function App() {
 
             <div className="bg-white w-auto h-44 mx-2 rounded-xl shadow-lg sm:hidden">
               <div className="flex flex-col text-center justify-center h-full w-full  rounded-xl border border-yellow-500">
-                <div className="font-medium text-xl mb-2 text-black">
+                <div className="font-bold text-xl pb-6">
                   Daily Quote
                 </div>
-                <div className="font-bold text-2xl text-black">
+                <div className="font-face-varela font-bold text-2xl text-black">
                   Stay Strong at life storms
                 </div>
               </div>
@@ -222,13 +224,13 @@ function App() {
             <Post postData={postData[3]}/> */}
           </div>
           <div className="hidden sm:block sm:order-1">
-            <div className="grid-flow-col mx-2 mt-4 ">
-              <div className="bg-white w-auto h-44 mb-2 rounded-xl shadow-md">
+            <div className="grid-flow-col mx-2 mt-4">
+              <div className="dailyQuote bg-white w-auto h-44 mb-2 rounded-xl shadow-md">
                 <div className="flex flex-col text-center justify-center content-center p-4 h-full">
-                  <div className="font-medium mb-2 text-black">
+                  <div className="titleText font-bold text-lg text-brand-primary pb-6">
                     Daily Quote
-                  </div>
-                  <div className="font-face-varela font-bold text-xl text-black">
+                    </div>
+                  <div className="expressionText font-face-varela font-bold text-2xl text-black">
                     Stay Strong at life storms
                   </div>
                 </div>

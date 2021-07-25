@@ -1,7 +1,7 @@
 import signUpImg from '../assets/sign-up-img.jpg';
 import { Link } from 'react-router-dom';
 
-function SignUp() {
+function Login() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
 
@@ -14,7 +14,7 @@ function SignUp() {
 							LOGO
 						</div> */}
 						<div className="text-4xl font-bold mb-4">
-							Sign Up
+							Log In
 						</div>
 					</div>
 					<div className="text-4xl mt-2 mb-4">
@@ -23,15 +23,10 @@ function SignUp() {
 				</div>
 				<div className="grid grid-rows-1 grid-flow-col text-lg">
 						<form>
-							<div className="flex-col sm:ml-12">
+							<div className=" flex-col sm:ml-12 sm:w-full">
 
 								<div className="px-3 sm:px-0">
 									<div className="text-gray-700 text-base">Email</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text"/>
-								</div>
-
-								<div className="px-3 sm:px-0">
-									<div className="mt-3 text-gray-700 text-base">Username</div>
 									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text"/>
 								</div>
 
@@ -42,20 +37,20 @@ function SignUp() {
 								
 							</div>
 							<div className="flex flex-col items-center">
-								<div className="text-sm mt-5 ml-3">
-									By signing in, you agree to the Motivational <section className="text-yellow-500 inline"><a href="" className="hover:underline hover:text-yellow-500">Privacy Policy</a></section> & <section className="text-yellow-500 inline"><a hred="" className="hover:underline hover:text-yellow-500">Cookie Policy.</a></section> 
+								<div className="text-base mt-5 ml-3 hover:text-brand-primary hover:underline cursor-pointer">
+									Forgotten Password ?
 								</div>
 
 								<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white text-xl font-bold">
-									Sign Up
+									Log In
 								</button>
 
 								
 									<div className="mt-6 text-base">
-										Already have an Account? 
+										Don't have an account ?
 										<section className="text-yellow-500 font-bold inline underline">
-											<Link to="/login">
-												Sign In
+											<Link to="/sign-up">
+												Sign Up
 											</Link>
 										</section>
 									</div>
@@ -69,4 +64,4 @@ function SignUp() {
 	);
 }
 
-export default SignUp;
+export default Login;

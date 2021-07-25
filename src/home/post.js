@@ -65,16 +65,20 @@ import 'react-awesome-slider/dist/styles.css';
         <ReactionButton reactionText="5 Excellent"/>
         <ReactionButton reactionText="1 Bad"/> */}
         <button className="bg-yellow-500 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['good']} Good
+        {postReactionsData['good']} 
+          Good
         </button>
         <button className="bg-yellow-400 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['awesome']} Awesome
+        {postReactionsData['awesome']} 
+          Awesome
         </button>
         <button className="bg-yellow-300 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['excellent']} Excellent
+        {postReactionsData['excellent']} 
+          Excellent
         </button>
         <button className="bg-yellow-200 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['bad']} Bad
+        {postReactionsData['bad']} 
+          Bad
         </button>
       </div>
     );

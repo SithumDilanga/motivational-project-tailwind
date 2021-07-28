@@ -8,6 +8,7 @@ import SignUp from './authentication/sign_up';
 import Login from './authentication/log_in'; 
 import postData from './fakeApiData';
 import Post from './home/post';
+import PostExapanded from './home/post_expanded';
 import { FaBolt } from 'react-icons/fa'
 import { FaCrosshairs } from 'react-icons/fa';
 import { FaHandHoldingHeart } from 'react-icons/fa';
@@ -135,6 +136,7 @@ function App() {
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/sign-up" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/post-expanded" component={PostExapanded} />
         <div>
         <NavBar drawerClickHandler={drawerToggleClickHandler} />
         {/* <NavDrawer drawerClickHandler={drawerToggleClickHandler} /> */}

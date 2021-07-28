@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import img1 from '../assets/img1.jpg';
 // import img2 from './assets/img2.png';
 import { RiShareForwardLine } from 'react-icons/ri'
@@ -9,8 +9,18 @@ import { FaCrosshairs } from 'react-icons/fa';
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
+
+import { Link } from 'react-router-dom';
   
   function Post({postData}) {
+
+    const [isPostOpen, setIsPostOpen] = useState(false);
+
+    const togglePostPopUp = () => {
+      setIsPostOpen(!isPostOpen);
+      console.log('pop up!');
+    }
+
     return (
       <div>
         <div className=" bg-white my-4 mx-1 rounded-lg sm:rounded-2xl shadow-lg">
@@ -26,7 +36,9 @@ import 'react-awesome-slider/dist/styles.css';
                 </div>
               </div>
               <div className = "ml-auto mr-6">
-                <IoArrowRedoOutline size = {25} onClick = {() => {}}/>
+                <Link to="/post-expanded">
+                  <IoArrowRedoOutline size = {25} onClick = {() => {}}/>
+                </Link>
               </div>
             </div>
             <div className="mt-0 ml-3 font-normal text-base">
@@ -34,11 +46,10 @@ import 'react-awesome-slider/dist/styles.css';
             </div>
             <div className="mt-2">
               {/* <img src = {img1} className="" /> */}
-              <AwesomeSlider bullets = {false}> 
-                <div data-src={postData.postImages[0]} />
+              <AwesomeSlider bullets = {false} className="cursor-pointer"> 
+                <div data-src={postData.postImages[0]} onClick={togglePostPopUp }/>
                 <div data-src={postData.postImages[1]} />
               </AwesomeSlider>
-              
             </div>
             <div className="ml-4 mt-3 mb-4">
               <ReactionSection postReactionsData={postData.postReactions}/>
@@ -66,19 +77,19 @@ import 'react-awesome-slider/dist/styles.css';
         <ReactionButton reactionText="1 Bad"/> */}
         <button className="bg-yellow-500 rounded-full py-2 px-3 mr-2 mt-1">
         {postReactionsData['good']} 
-          Good
+          &nbsp;Good
         </button>
         <button className="bg-yellow-400 rounded-full py-2 px-3 mr-2 mt-1">
         {postReactionsData['awesome']} 
-          Awesome
+          &nbsp;Awesome
         </button>
         <button className="bg-yellow-300 rounded-full py-2 px-3 mr-2 mt-1">
         {postReactionsData['excellent']} 
-          Excellent
+          &nbsp;Excellent
         </button>
         <button className="bg-yellow-200 rounded-full py-2 px-3 mr-2 mt-1">
         {postReactionsData['bad']} 
-          Bad
+          &nbsp;Bad
         </button>
       </div>
     );

@@ -6,7 +6,7 @@ const postData = [
       username: 'Steve Hawl',
       date: '28 jun 2020',
       userProfilePic: {img1},
-      postDesc: 'This is post description',
+      postDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales sagittis diam id posuere.',
       postImages: [
         'https://live.staticflickr.com/65535/51289414298_52b007f540_h.jpg', 
         'https://live.staticflickr.com/65535/51294202574_2bfe8c0cdb_h.jpg'

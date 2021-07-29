@@ -11,14 +11,23 @@ import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 
 import { Link } from 'react-router-dom';
+import PostExapanded from './post_expanded';
+import { useHistory } from "react-router-dom";
+
   
   function Post({postData}) {
 
-    const [isPostOpen, setIsPostOpen] = useState(false);
+    // const [isPostOpen, setIsPostOpen] = useState(false);
 
-    const togglePostPopUp = () => {
-      setIsPostOpen(!isPostOpen);
-      console.log('pop up!');
+    // const togglePostPopUp = () => {
+    //   setIsPostOpen(!isPostOpen);
+    //   console.log('pop up!');
+    // }
+
+    let history = useHistory();
+
+    function openPostExpanded() {
+      history.push("/post-expanded");
     }
 
     return (
@@ -36,9 +45,9 @@ import { Link } from 'react-router-dom';
                 </div>
               </div>
               <div className = "ml-auto mr-6">
-                <Link to="/post-expanded">
-                  <IoArrowRedoOutline size = {25} onClick = {() => {}}/>
-                </Link>
+                {/* <Link to="/post-expanded"> */}
+                  <IoArrowRedoOutline size = {25} className="cursor-pointer" />
+                {/* </Link> */}
               </div>
             </div>
             <div className="mt-0 ml-3 font-normal text-base">
@@ -47,7 +56,7 @@ import { Link } from 'react-router-dom';
             <div className="mt-2">
               {/* <img src = {img1} className="" /> */}
               <AwesomeSlider bullets = {false} className="cursor-pointer"> 
-                <div data-src={postData.postImages[0]} onClick={togglePostPopUp }/>
+                <div data-src={postData.postImages[0]} onClick={openPostExpanded} />
                 <div data-src={postData.postImages[1]} />
               </AwesomeSlider>
             </div>
@@ -57,6 +66,7 @@ import { Link } from 'react-router-dom';
           </div>
             </div>
           </div>
+
     );
   }
 

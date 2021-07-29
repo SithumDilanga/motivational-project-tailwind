@@ -6,22 +6,30 @@ import { Link } from 'react-router-dom';
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import { MdClose } from 'react-icons/md';
 
+import { useHistory } from "react-router-dom";
+
 function PostExapanded() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
 
+	let history = useHistory();
+
+  function closePostExpanded() {
+    history.push("/");
+  }
+
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 h-full w-full ">
       <div className="h-full col-span-2 border-r border-black">
 				<div className="grid grid-rows-5 h-screen">
 					<div className="bg-black row-span-4">
 						{/* image goes here */}
-						<MdClose color="white" size="32" className="fixed m-2"/>
+						<MdClose color="white" size="32" className="fixed m-2 cursor-pointer" onClick={closePostExpanded} />
 						<img src={img1} className="h-auto max-h-full m-auto" />
 					</div>
 					<div className="row-span-1 justify-self-center">
 						<div className="mt-4 ml-4">
-							<ReactionSection postReactionsData={postData[0].postReactions}/>
+							<ReactionSection postReactionsData={postData[0].postReactions} />
 						</div>
 					</div>
 				</div>

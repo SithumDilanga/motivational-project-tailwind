@@ -98,6 +98,13 @@ function App() {
   const dispatch = useDispatch()
   const { posts, loading, hasErrors } = useSelector(postsSelector)
 
+  // const [isPostOpen, setIsPostOpen] = useState(false);
+
+  //   const togglePostPopUp = () => {
+  //     setIsPostOpen(!isPostOpen);
+  //     console.log('pop up!');
+  //   }
+
   useEffect(() => {
     dispatch(fetchPosts())
   }, [dispatch])
@@ -244,6 +251,7 @@ function App() {
           </div>   
           {/* <div className="bg-blue-900">Col 4</div>     */}
         </div>
+        {/* <PopupModel /> */}
       </div>
       </Switch>
     </Router>

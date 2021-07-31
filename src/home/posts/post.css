@@ -1,0 +1,16 @@
+ /* ----------------- Animations ---------------- */
+
+ .reactionBtn:hover {
+	 animation: btnUpAnim 100ms ease-out forwards alternate;
+	 font-weight: bold;
+ }
+
+ @keyframes btnUpAnim {
+	 0% {
+		 transform: translateY(0);
+	 }
+
+	 100% {
+		 transform: translateY(-8%);
+	 }
+ }

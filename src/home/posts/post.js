@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import img1 from '../assets/img1.jpg';
+import img1 from '../../assets/img1.jpg';
 // import img2 from './assets/img2.png';
 import { RiShareForwardLine } from 'react-icons/ri'
 import { FaShareSquare } from 'react-icons/fa';
@@ -9,10 +9,12 @@ import { FaCrosshairs } from 'react-icons/fa';
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
+import ReactionSection from './reaction_selection';
 
 import { Link } from 'react-router-dom';
 import PostExapanded from './post_expanded';
 import { useHistory } from "react-router-dom";
+import './post.css';
 
   
   function Post({postData}) {
@@ -27,7 +29,11 @@ import { useHistory } from "react-router-dom";
     let history = useHistory();
 
     function openPostExpanded() {
-      history.push("/post-expanded");
+      history.push({
+        pathname: '/post-expanded',
+        search: '?query=abc',
+        state: {postDetails: postData}
+      });
     }
 
     return (
@@ -55,7 +61,7 @@ import { useHistory } from "react-router-dom";
             </div>
             <div className="mt-2">
               {/* <img src = {img1} className="" /> */}
-              <AwesomeSlider bullets = {false} className="cursor-pointer"> 
+              <AwesomeSlider bullets = {false} className="cursor-pointer" > 
                 <div data-src={postData.postImages[0]} onClick={openPostExpanded} />
                 <div data-src={postData.postImages[1]} />
               </AwesomeSlider>
@@ -78,31 +84,5 @@ import { useHistory } from "react-router-dom";
     );
   }
   
-  function ReactionSection({postReactionsData}) {
-    return (
-      <div className="grid-flow-row text-xs">
-        {/* <ReactionButton reactionText="15 Good" />
-        <ReactionButton reactionText="7 Awesome"/>
-        <ReactionButton reactionText="5 Excellent"/>
-        <ReactionButton reactionText="1 Bad"/> */}
-        <button className="bg-yellow-500 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['good']} 
-          &nbsp;Good
-        </button>
-        <button className="bg-yellow-400 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['awesome']} 
-          &nbsp;Awesome
-        </button>
-        <button className="bg-yellow-300 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['excellent']} 
-          &nbsp;Excellent
-        </button>
-        <button className="bg-yellow-200 rounded-full py-2 px-3 mr-2 mt-1">
-        {postReactionsData['bad']} 
-          &nbsp;Bad
-        </button>
-      </div>
-    );
-  }
 
   export default Post;

@@ -8,6 +8,8 @@ const postData = [
       userProfilePic: {img1},
       postDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sodales sagittis diam id posuere.',
       postImages: [
+        'https://live.staticflickr.com/3124/2585980079_fe7b672251_h.jpg',
+        'https://live.staticflickr.com/65535/51280721620_de964a1f74_h.jpg',
         'https://live.staticflickr.com/65535/51289414298_52b007f540_h.jpg', 
         'https://live.staticflickr.com/65535/51294202574_2bfe8c0cdb_h.jpg'
       ],

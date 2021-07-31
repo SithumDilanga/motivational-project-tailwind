@@ -7,8 +7,8 @@ import UserProfile from './user_profile/user_profile';
 import SignUp from './authentication/sign_up';
 import Login from './authentication/log_in'; 
 import postData from './fakeApiData';
-import Post from './home/post';
-import PostExapanded from './home/post_expanded';
+import Post from './home/posts/post';
+import PostExapanded from './home/posts/post_expanded';
 import { FaBolt } from 'react-icons/fa'
 import { FaCrosshairs } from 'react-icons/fa';
 import { FaHandHoldingHeart } from 'react-icons/fa';
@@ -50,27 +50,27 @@ function NavBar({drawerClickHandler}) {
         <div className="mr-auto hidden sm:flex">
           <button className="flex items-center ml-20 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('home')}>
 
-            {selectedNav ? <HomeWorkRounded style={{fontSize: 42, color:"rgba(245, 158, 11)"}} /> : <HomeWorkRounded style={{ fontSize: 42}} />}
+            {selectedNav ? <HomeWorkRounded style={{fontSize: 35, color:"rgba(245, 158, 11)"}} /> : <HomeWorkRounded style={{ fontSize: 35}} />}
 
-            <div className={`font-face-gm text-xl ${selectedNav ? "text-yellow-500" : ""}`}>
+            <div className={`font-face-gm text-lg ${selectedNav ? "text-yellow-500" : ""}`}>
               Home
             </div>
           </button>
 
           <button className="flex items-center ml-4 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('notifications')}>
 
-            <Notification style={{fontSize: 42, color:"rgba(107, 114, 128)"}} />
+            <Notification style={{fontSize: 35, color:"rgba(107, 114, 128)"}} />
 
-            <div className={`font-face-gm text-xl ${selectedNav ? "text-gray-500" : ""}`}>
+            <div className={`font-face-gm text-lg ${selectedNav ? "text-gray-500" : ""}`}>
               Notifications
             </div>
           </button>
 
           <button className="flex items-center ml-4 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('notifications')}>
 
-            <FaHandHoldingHeart size="38" color="rgba(107, 114, 128)"/>
+            <FaHandHoldingHeart size="31" color="rgba(107, 114, 128)"/>
 
-            <div className={`font-face-gm text-xl ${selectedNav ? "text-gray-500" : ""} ml-2`}>
+            <div className={`font-face-gm text-lg ${selectedNav ? "text-gray-500" : ""} ml-2`}>
               Donate Us
             </div>
           </button>

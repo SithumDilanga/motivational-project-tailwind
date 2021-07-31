@@ -1,21 +1,31 @@
 import React from 'react';
-import img1 from '../assets/img1.jpg';
-import postData from '../fakeApiData';
+import { useEffect } from "react";
+import img1 from '../../assets/img1.jpg';
+import postData from '../../fakeApiData';
 import { Link } from 'react-router-dom';
+import ReactionSection from './reaction_selection';
 
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import { MdClose } from 'react-icons/md';
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 function PostExapanded() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
 
 	let history = useHistory();
+	const location = useLocation();
+
+	useEffect(() => {
+		console.log(location.state.postDetails.username);
+	}, [location]);
 
   function closePostExpanded() {
-    history.push("/");
+    // history.push("/");
+		history.goBack();
   }
 
   return (
@@ -24,8 +34,15 @@ function PostExapanded() {
 				<div className="grid grid-rows-5 h-screen">
 					<div className="bg-black row-span-4">
 						{/* image goes here */}
-						<MdClose color="white" size="32" className="fixed m-2 cursor-pointer" onClick={closePostExpanded} />
-						<img src={img1} className="h-auto max-h-full m-auto" />
+						{/* <img src={img1} className="h-auto max-h-full m-auto" /> */}
+						<div className="relative">
+							<MdClose color="white" size="32" className="fixed m-2 cursor-pointer z-10" onClick={closePostExpanded} />
+							{/* TODO:find a way to contain images in the slider */}
+							<AwesomeSlider bullets = {false} > 
+            	  <div data-src={location.state.postDetails.postImages[0]} 	className="" />
+            	  <div data-src={location.state.postDetails.postImages[1]} />
+            	</AwesomeSlider>
+						</div>
 					</div>
 					<div className="row-span-1 justify-self-center">
 						<div className="mt-4 ml-4">
@@ -39,10 +56,10 @@ function PostExapanded() {
       	  <img src={img1} className="w-12 h-12 rounded-full object-cover object-cente"/>
       	  <div className="flex-col mt-1 ml-4">
       	    <div className="text-base font-bold">
-      	      {postData[0].username}
+      	      {location.state.postDetails.username}
       	    </div>
       	    <div className="text-sm text-gray-500">
-      	      {postData[0].date}
+      	      {location.state.postDetails.date}
       	    </div>
       	  </div>
       	  <div className = "ml-auto mr-6">
@@ -53,7 +70,7 @@ function PostExapanded() {
       	</div>
 				<div className="mb-auto ml-4 font-normal text-base">
       	  <div>
-						{postData[0].postDesc}
+						{location.state.postDetails.postDesc}
 					</div>
       	</div>
 				<div className="mt-8 mb-5 ml-2 mr-2">
@@ -72,33 +89,6 @@ function PostExapanded() {
 			</div>
     </div>
   );
-}
-
-function ReactionSection({postReactionsData}) {
-	return (
-		<div className="grid-flow-row text-xs">
-			{/* <ReactionButton reactionText="15 Good" />
-			<ReactionButton reactionText="7 Awesome"/>
-			<ReactionButton reactionText="5 Excellent"/>
-			<ReactionButton reactionText="1 Bad"/> */}
-			<button className="text-sm bg-yellow-500 rounded-full py-2 px-4 mr-2 mt-1">
-			{postReactionsData['good']} 
-				&nbsp;Good
-			</button>
-			<button className="text-sm bg-yellow-400 rounded-full py-2 px-4 mr-2 mt-1">
-			{postReactionsData['awesome']} 
-				&nbsp;Awesome
-			</button>
-			<button className="text-sm bg-yellow-300 rounded-full py-2 px-4 mr-2 mt-1">
-			{postReactionsData['excellent']} 
-				&nbsp;Excellent
-			</button>
-			<button className="text-sm bg-yellow-200 rounded-full py-2 px-4 mr-2 mt-1">
-			{postReactionsData['bad']} 
-				&nbsp;Bad
-			</button>
-		</div>
-	);
 }
 
 export default PostExapanded;

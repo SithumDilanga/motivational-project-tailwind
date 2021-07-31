@@ -1,4 +1,4 @@
-import Post from "../../../home/post"
+import Post from "../../../home/posts/post"
 
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

@@ -4,6 +4,7 @@ import img4 from '../assets/img4.jpg';
 import Tabs from "./tab_components/tabs"; 
 import TabContent from './tab_components/tab_content';
 import { useState } from "react";
+import { MdPhotoCamera } from 'react-icons/md';
 
 import ImgCrop from 'antd-img-crop';
 import { Upload } from 'antd';
@@ -46,8 +47,20 @@ function UserProfile() {
 				<div className="flex-col">
 					<div className="relative">
 						<img src={img4} className="h-48 w-max rounded-t-lg object-cover object-center sm:h-64" />
+						<div className="flex gap-1 items-center absolute hover:bg-backdrop z-10 mt-1 mr-1 p-1 right-0 top-0 text-white rounded-md cursor-pointer">
+							<MdPhotoCamera size="20" />
+							<div>
+								Edit cover
+							</div>
+						</div>
 						<div className="pl-6">
 							<img src={imgUrl.url} className="absolute top-2/3 w-28 h-28 rounded-full border-4 border-white object-cover object-center sm:w-32 sm:h-32"/>
+						</div>
+						<div className="flex gap-1 items-center absolute hover:bg-gray-200 text-xs p-1 ml-40 mt-1 rounded-md cursor-pointer sm:text-sm">
+							<MdPhotoCamera size="20" />
+							<div>
+								Edit profile picture
+							</div>
 						</div>
 						{/* <div className="ml-44">
 						<ImgCrop grid>

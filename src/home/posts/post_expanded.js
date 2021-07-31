@@ -29,10 +29,10 @@ function PostExapanded() {
   }
 
   return (
-    <div className="grid grid-cols-3 h-full w-full ">
-      <div className="h-full col-span-2 border-r border-black">
-				<div className="grid grid-rows-5 h-screen">
-					<div className="bg-black row-span-4">
+    <div className="h-full w-full sm:grid sm:grid-cols-3">
+      <div className="h-full sm:col-span-2 border-r border-black">
+				<div className="grid sm:grid-rows-5 sm:h-screen">
+					<div className="bg-black sm:row-span-4">
 						{/* image goes here */}
 						{/* <img src={img1} className="h-auto max-h-full m-auto" /> */}
 						<div className="relative">
@@ -51,9 +51,9 @@ function PostExapanded() {
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col justify-between bg-white m-2 h-full col-span-1 rounded-md shadow-xl">
+			<div className="flex flex-col justify-between bg-white m-2 mt-5 h-full sm:col-span-1 rounded-md shadow-xl">
 				<div className="flex items-center ml-3 mt-3 sm:ml-4 sm:mt-6 mb-3">
-      	  <img src={img1} className="w-12 h-12 rounded-full object-cover object-cente"/>
+      	  <img src={img1} className="w-12 h-12 rounded-full object-cover object-center"/>
       	  <div className="flex-col mt-1 ml-4">
       	    <div className="text-base font-bold">
       	      {location.state.postDetails.username}
@@ -78,7 +78,7 @@ function PostExapanded() {
 						<div className="text-2xl font-bold">
 							Still didn’t feel motivated ?
 						</div>	
-						<button className="bg-brand-primary mt-2 py-2 px-7 text-white text-xl font-bold rounded-full">
+						<button className="bg-brand-primary mt-2 py-2 px-7 text-white text-xl font-bold rounded-full outline-none">
 							Sign Up
 						</button>
 						<div className="text-xl mt-2">

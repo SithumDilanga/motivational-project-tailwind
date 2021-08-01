@@ -35,11 +35,18 @@ function PostsContent() {
 
   // ---------- image select and upload functions -----------
 
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState(''); // to pick image
+  const [imgData, setImgData] = useState(null); // to preview image
 
   const imageSelectHandler = event => {
     setSelectedImage(event.target.files[0]);
     console.log(event.target.files[0]);
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImgData(reader.result);
+    });
+    reader.readAsDataURL(event.target.files[0]);
   }
 
   const imageUploaderHandler = () => {
@@ -55,6 +62,29 @@ function PostsContent() {
   }
 
   // ---------- End image select and upload functions -----------
+
+  // ---------- description text select and upload functions -----------
+
+  const [descText, setDescText] = useState();
+  const [descTextId, setDescTextId] = useState();
+
+  const handleDescText = (event) => {
+    setDescText(event.target.value);
+    console.log(descText);
+  }
+
+  const descTextUploadHandler =() => {
+    const desc = {
+      desc: {descText}
+    }
+
+    axios.post('https://reqres.in/api/articles', desc)
+          .then(response => setDescTextId(response.data.id));
+    
+    console.log(descTextId);
+  }
+
+  // ---------- description text select and upload functions -----------
 
   useEffect(() => {
     dispatch(fetchPosts())
@@ -73,24 +103,31 @@ function PostsContent() {
 	return (
     <div className="bg-gray-50">
 		  <div className="m-auto pt-3 sm:w-4/5 ">
-        <div className="sm:flex sm:items-center bg-white mx-2 my-2 p-2 pt-1 shadow-md rounded-md">
-          <div className="inline-flex items-center ml-1">
-            <img src={img1} className="h-12 w-12 mr-3 rounded-full object-cover   object-center" />
-            {/* <input type="text" placeholder="What motivates you ?" className="text-lg  focus:outline-none" /> */}
-            <textarea className="text-lg mt-7 focus:outline-none resize-none"   placeholder="What motivates you?" >
-            </textarea>
+        <div className=" bg-white mx-2 my-2 p-2 pt-1 shadow-md rounded-md">
+          <div className="sm:flex sm:items-center">
+            <div className="inline-flex items-center ml-1">
+              <img src={img1} className="h-12 w-12 mr-3 rounded-full object-cover     object-center" />
+              {/* <input type="text" placeholder="What motivates you ?"   className="text-lg  focus:outline-none" /> */}
+              <textarea className="text-lg mt-7 focus:outline-none resize-none"     placeholder="What motivates you?" value={descText} onChange={handleDescText} >
+              </textarea>
+            </div>
+
+            {/* image picker */}
+            <input type="file" onChange={imageSelectHandler} className="hidden" ref=  {fileInput} />
+            <div className="bg-yellow-100 w-20 flex items-center mr-1 ml-1 px-2 py-1 my-2   rounded-md hover:shadow cursor-pointer sm:hover:shadow-none sm:ml-auto  sm:hover:bg-yellow-100 sm:bg-transparent" onClick={() => fileInput.current?. click()}>
+              <MdImage size="24" color="#FFA500" />
+              <div className="text-gray-500 font-medium ml-0.5">Photo</div>
+            </div>
           </div>
 
-          {/* image picker */}
-          <input type="file" onChange={imageSelectHandler} className="hidden" ref={fileInput} />
-          <div className="bg-yellow-100 w-20 flex items-center mr-1 ml-1 px-2 py-1 my-2 rounded-md hover:shadow cursor-pointer sm:hover:shadow-none sm:ml-auto sm:hover:bg-yellow-100 sm:bg-transparent" onClick={() => fileInput.current?.click()}>
-            <MdImage size="24" color="#FFA500" />
-            <div className="text-gray-500 font-medium ml-0.5">Photo</div>
+          <div className="">
+            <img src={imgData} className="w-full" />
           </div>
-          
+
         </div>
         <div className="flex justify-end w-full pr-2 pt-1">
-          <button className="bg-brand-primary text-white text-lg font-semibold px-12 py-2 rounded-full hover:bg-brand-secondary outline-none" onClick={imageUploaderHandler} >
+          <button className="bg-brand-primary text-white text-lg font-semibold px-12 py-2 rounded-full hover:bg-brand-secondary outline-none" onClick={descTextUploadHandler} > 
+          {/* imageUploaderHandler TODO:find a way to trigger both image and desc upload functions */}
           Grit
           </button>
           

@@ -1,7 +1,10 @@
 import Post from "../../../home/posts/post"
 import img1 from '../../../assets/img1.jpg';
 import { MdImage } from 'react-icons/md';
+import { MdCheckCircle } from 'react-icons/md';
 import axios from "axios";
+
+import PulseLoader from "react-spinners/PulseLoader";
 
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +16,10 @@ function PostsContent() {
 
   // to select input element image pick 
   const fileInput = useRef(null)
+
+  // to check whether the post text is sent success or not
+  const [isPostCompleted, setIsPostCompleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // ---------- Auto resizing textarea(vanilla JS implementation) ----------
 
@@ -52,7 +59,7 @@ function PostsContent() {
   const imageUploaderHandler = () => {
     const fd = new FormData();
     fd.append('image', selectedImage, selectedImage.name);
-    axios.post('https://my-server/upload', fd, {
+    axios.post('https://myapi/photos', fd, {
       onUploadProgress: ProgressEvent => {
         console.log('Upload Progress : ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
       }
@@ -66,7 +73,7 @@ function PostsContent() {
   // ---------- description text select and upload functions -----------
 
   const [descText, setDescText] = useState();
-  const [descTextId, setDescTextId] = useState();
+  // const [descTextId, setDescTextId] = useState();
 
   const handleDescText = (event) => {
     setDescText(event.target.value);
@@ -79,9 +86,16 @@ function PostsContent() {
     }
 
     axios.post('https://reqres.in/api/articles', desc)
-          .then(response => setDescTextId(response.data.id));
-    
-    console.log(descTextId);
+          .then(response => {
+            if(response.status === 201) {
+              setIsPostCompleted(true);
+              setIsLoading(false);
+              console.log(response.status);
+            }
+            // console.log(response.status);
+          });
+    // setDescTextId(response.status)
+    // console.log(descTextId);
   }
 
   // ---------- description text select and upload functions -----------
@@ -108,31 +122,43 @@ function PostsContent() {
             <div className="inline-flex items-center ml-1">
               <img src={img1} className="h-12 w-12 mr-3 rounded-full object-cover     object-center" />
               {/* <input type="text" placeholder="What motivates you ?"   className="text-lg  focus:outline-none" /> */}
-              <textarea className="text-lg mt-7 focus:outline-none resize-none"     placeholder="What motivates you?" value={descText} onChange={handleDescText} >
+              <textarea className="text-lg mt-7 focus:outline-none resize-none"     placeholder="What motivates you?" value={isPostCompleted ? '' : descText} onChange={handleDescText} >
               </textarea>
             </div>
 
             {/* image picker */}
             <input type="file" onChange={imageSelectHandler} className="hidden" ref=  {fileInput} />
-            <div className="bg-yellow-100 w-20 flex items-center mr-1 ml-1 px-2 py-1 my-2   rounded-md hover:shadow cursor-pointer sm:hover:shadow-none sm:ml-auto  sm:hover:bg-yellow-100 sm:bg-transparent" onClick={() => fileInput.current?. click()}>
+            <div className="bg-yellow-100 w-20 flex items-center mr-1 ml-1 px-2 py-1 my-2 rounded-md hover:shadow cursor-pointer sm:hover:shadow-none sm:ml-auto  sm:hover:bg-yellow-100 sm:bg-transparent" onClick={() => fileInput.current?. click()}>
               <MdImage size="24" color="#FFA500" />
               <div className="text-gray-500 font-medium ml-0.5">Photo</div>
             </div>
           </div>
 
           <div className="">
-            <img src={imgData} className="w-full" />
+            <img src={imgData} className={`w-full ${isPostCompleted ? "hidden" : ""}`} />
           </div>
 
         </div>
-        <div className="flex justify-end w-full pr-2 pt-1">
-          <button className="bg-brand-primary text-white text-lg font-semibold px-12 py-2 rounded-full hover:bg-brand-secondary outline-none" onClick={descTextUploadHandler} > 
-          {/* imageUploaderHandler TODO:find a way to trigger both image and desc upload functions */}
-          Grit
+        <div className="flex items-center justify-end w-full pr-2 pt-1">
+        <div className="pr-2">
+          <PulseLoader loading={isLoading} size={10} color="#ffa500" />
+        </div>
+          <button className="bg-brand-primary text-white text-lg font-semibold px-12 py-2 rounded-full hover:bg-brand-secondary outline-none" onClick={() => {
+            descTextUploadHandler();
+            imageUploaderHandler();
+            setIsLoading(true);
+          }} >
+            Grit
           </button>
           
           {/* <button onClick={() => fileInput.current?.click()} >Pick File</button> */}
           {/* <button onClick={imageUploaderHandler}>Upload</button> */}
+        </div>
+        <div className={`bg-gray-100 flex items-center justify-center gap-2 mt-2 py-2 w-full rounded-md ${isPostCompleted ? "block" : "hidden"}`}>
+          <MdCheckCircle size="22" color="#ffa500" />
+          <div className="text-lg">
+            Grit Completed!
+          </div>
         </div>
 		  	{renderPosts()}
 		  </div>

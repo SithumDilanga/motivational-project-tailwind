@@ -1,0 +1,15 @@
+ /* ----------------- Animations ---------------- */
+
+.rightIcon {
+	animation: xAxisMoveAnim 900ms ease-out forwards infinite alternate;
+}
+
+@keyframes xAxisMoveAnim {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(10%);
+	}
+}

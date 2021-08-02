@@ -1,11 +1,25 @@
 import signUpImg from '../assets/sign-up-img.jpg';
+import { MdChevronRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import './sign_up.css';
 
 function SignUp() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
 
 	return (
+		<div>
+		<div className="fixed flex items-center h-full mr-6 right-0">
+			{/* TODO: fix route issue here */}
+			<Link to="/">
+				<div className="bg-white hover:bg-brand-third hover:text-white flex items-center 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
+					<div className="text-xl font-semibold">
+						Explore
+					</div>
+					<MdChevronRight size="34" className="rightIcon" />
+				</div>
+			</Link>
+		</div>
 		<div className="bg-white mt-8 m-auto sm:w-8/12 w-11/12 rounded-lg shadow-lg">
 			<div className="px-2 py-6">
 				<div className="text-center">
@@ -65,6 +79,7 @@ function SignUp() {
 						<img src={signUpImg} className="hidden sm:block w-80 justify-self-end" />
 					</div>
 			</div>
+		</div>
 		</div>
 	);
 }

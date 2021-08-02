@@ -87,6 +87,14 @@ function NavBar({drawerClickHandler}) {
   );
 }
 
+// TODO: make a dropdown when hover
+function AccDropDown() {
+  return (
+    <div>
+      Logout
+    </div>
+  );
+}
 
 
 function App() {
@@ -139,6 +147,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/" component={App} />
         <Route path="/daily-motivation" component={DailyMotivation}/>
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/sign-up" component={SignUp} />

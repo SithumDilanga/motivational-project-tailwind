@@ -114,7 +114,8 @@ function UserProfile() {
 			<div className=" relative bg-white m-2 rounded-lg">
 				<div className="flex-col">
 					<div className="relative">
-						<img src={CoverImgData} className="h-48 w-max rounded-t-lg object-cover object-center sm:h-64" onLoad={CoverImageUploaderHandler} />
+						{/* src={CoverImgData} onLoad={CoverImageUploaderHandler} */}
+						<img src={img4} className="h-48 w-max rounded-t-lg object-cover object-center sm:h-64"  />
 						<input type="file" onChange={CoverImageSelectHandler} className="hidden" ref=  {coverPicFile} />
 						<div className="flex gap-1 items-center absolute hover:bg-backdrop z-10 mt-1 mr-1 p-1 right-0 top-0 text-white rounded-md cursor-pointer">
 							<MdPhotoCamera size="20" onClick={() => coverPicFile.current?. click()} />
@@ -123,8 +124,8 @@ function UserProfile() {
 							</div>
 						</div>
 						<div className="pl-6">
-							{/* imgUrl.url */}
-							<img src={imgData} className="absolute top-2/3 w-28 h-28 rounded-full border-4 border-white object-cover object-center sm:w-32 sm:h-32" onLoad={imageUploaderHandler}/>
+							{/* imgData  onLoad={imageUploaderHandler}*/}
+							<img src={img3} className="absolute top-2/3 w-28 h-28 rounded-full border-4 border-white object-cover object-center sm:w-32 sm:h-32" />
 						</div>
 						<input type="file" onChange={imageSelectHandler} className="hidden" ref=  {profilePicFile} />
 						<div className="flex gap-1 items-center absolute hover:bg-gray-200 text-xs p-1 ml-40 mt-1 rounded-md cursor-pointer sm:text-sm" onClick={() =>{

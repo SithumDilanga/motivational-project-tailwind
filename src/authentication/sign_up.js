@@ -11,7 +11,7 @@ function SignUp() {
 		<div>
 		<div className="fixed flex items-center h-full mr-6 right-0">
 			{/* TODO: fix route issue here */}
-			<Link to="/">
+			<Link to="/home">
 				<div className="bg-white hover:bg-brand-third hover:text-white flex items-center 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
 					<div className="text-xl font-semibold">
 						Explore

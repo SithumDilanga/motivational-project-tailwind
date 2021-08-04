@@ -13,7 +13,7 @@ import Notification from '@material-ui/icons/Notifications';
 import 'react-awesome-slider/dist/styles.css';
 import { Link } from 'react-router-dom';
 import '../App.css';
-import './home.scss'
+import './home.css'
 
 import React, {useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -92,11 +92,11 @@ function NavBar({drawerClickHandler}) {
           		  	<img src={img1} className="w-11 h-11 rounded-full object-cover object-center" />
 								</div>
         			</Link>
-							<MdArrowDropDown size="32" onClick={togglingDropDown} className="cursor-pointer hover:bg-yellow-100 rounded-full" />
+							<MdArrowDropDown size="32" onClick={togglingDropDown} className="cursor-pointer sm:hover:bg-yellow-100 rounded-full" />
           	</div>
 						<div className="flex justify-end">
 							{isDropDownOpen && (
-								<div className="bg-gray-300 flex flex-col gap-y-1 absolute px-3 py-2 mt-1.5 rounded-lg shadow-lg z-20">
+								<div className="bg-gray-200 flex flex-col gap-y-1 absolute px-3 py-2 mt-1.5 rounded-lg shadow-lg z-20">
 									{dropDownItems.map(option => (
 										<div className="" onClick={onDropItemClicked(option)} key={option}>
 											<AccDropDown dropdownItem={option} />
@@ -114,16 +114,18 @@ function NavBar({drawerClickHandler}) {
 
 function AccDropDown({dropdownItem}) {
   return (
-    <div className="flex items-center bg-white z-20 mt-0.5 px-6 py-1 rounded-full hover:text-white hover:bg-brand-secondary cursor-pointer">
-			<div>
-				{dropdownItem === 'Your profile' && <MdPerson size="24" />}
-				{dropdownItem === 'Logout' && <FaSignOutAlt size="24" />}
-				{/* <MdPerson size="24" /> */}
-			</div>
-			<div className="py-1 px-4 text-base font-medium rounded-sm ">
-      	{dropdownItem}
-			</div>
-    </div>
+    <React.Fragment>
+      <div className="flex items-center bg-white z-20 mt-0.5 px-6 py-1 rounded-full hover:text-white hover:bg-brand-secondary cursor-pointer">
+		  	<div>
+		  		{dropdownItem === 'Your profile' && <MdPerson size="24" />}
+		  		{dropdownItem === 'Logout' && <FaSignOutAlt size="24" />}
+		  		{/* <MdPerson size="24" /> */}
+		  	</div>
+		  	<div className="py-1 px-4 text-base font-medium rounded-sm ">
+        	{dropdownItem}
+		  	</div>
+      </div>
+    </React.Fragment>
   );
 }
 
@@ -174,7 +176,6 @@ function Home() {
 
 	return(
 		<React.Fragment>
-			<div>
         <NavBar drawerClickHandler={drawerToggleClickHandler} />
         {/* <NavDrawer drawerClickHandler={drawerToggleClickHandler} /> */}
         <SideDrawer show={isDrawerOpen} />
@@ -282,7 +283,6 @@ function Home() {
           {/* <div className="bg-blue-900">Col 4</div>     */}
         </div>
         {/* <PopupModel /> */}
-      </div>
 	 </React.Fragment>
 	);
 }

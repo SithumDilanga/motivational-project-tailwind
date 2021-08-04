@@ -9,10 +9,13 @@ function SignUp() {
 
 	return (
 		<div>
-		<div className="fixed flex items-center h-full mr-6 right-0">
-			{/* TODO: fix route issue here */}
+
+			{/* explore button in desktop screens */}
+
+		<div className="hidden sm:fixed sm:flex sm:items-center h-full mr-6 right-0">
+			{/* TODO: add redirect to '/' */}
 			<Link to="/home">
-				<div className="bg-white hover:bg-brand-third hover:text-white flex items-center 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
+				<div className="bg-white flex items-center hover:bg-brand-third hover:text-white 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
 					<div className="text-xl font-semibold">
 						Explore
 					</div>
@@ -79,6 +82,20 @@ function SignUp() {
 						<img src={signUpImg} className="hidden sm:block w-80 justify-self-end" />
 					</div>
 			</div>
+		</div>
+
+		{/* explore button in mobile screens */}
+
+		<div className="sm:hidden flex items-center justify-center mt-2 pb-2 h-full mr-6">
+			{/* TODO: add redirect to '/' */}
+			<Link to="/home">
+				<div className="bg-white flex items-center hover:bg-brand-third hover:text-white 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
+					<div className="text-xl font-semibold">
+						Explore
+					</div>
+					<MdChevronRight size="34" className="rightIcon" />
+				</div>
+			</Link>
 		</div>
 		</div>
 	);

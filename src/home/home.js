@@ -22,6 +22,8 @@ import { fetchPosts, postsSelector } from '../slices/postsSlice'
 import SideDrawer from '../navDrawer/side_drawer';
 import Backdrop from '../navDrawer/backdrop';
 
+import { getPosts } from '../slices/postNewSlice';
+
 function NavBar({drawerClickHandler}) {
 
   const [selectedNav, setSelectedNav] = useState('home');
@@ -133,10 +135,13 @@ function Home() {
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const dispatch = useDispatch()
-  const { posts, loading, hasErrors } = useSelector(postsSelector)
+  // const dispatch = useDispatch()
+  /*const { posts, loading, hasErrors } = useSelector(postsSelector)*/
 
   // const [isPostOpen, setIsPostOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const { posts, status } = useSelector((state) => state.posts);
 
   //   const togglePostPopUp = () => {
   //     setIsPostOpen(!isPostOpen);
@@ -144,17 +149,27 @@ function Home() {
   //   }
 
   useEffect(() => {
-    dispatch(fetchPosts())
+    // dispatch(fetchPosts())
+    dispatch(getPosts())
+    .unwrap().then((originalPromiseResult) => {
+      console.log(originalPromiseResult);
+    }).catch((rejectedValueOrSerializedError) => {
+      console.log(rejectedValueOrSerializedError);
+    });
   }, [dispatch])
 
   // error handling & map successful query data 
   const renderPosts = () => {
-    if (loading) return <p>Loading recipes...</p>
-    if (hasErrors) return <p>Cannot display recipes...</p>
+    if (status === 'loading') return <p>Loading recipes...</p>
+    if (status === 'failed') return <p>Cannot display recipes...</p>
 
     return posts.map(post => 
       <Post postData={post} />  
     )
+
+    /*return posts.map((post, i) => 
+      <h1 key={i}>{post.name}</h1>
+    )*/
   }
 
   const drawerToggleClickHandler = () => {

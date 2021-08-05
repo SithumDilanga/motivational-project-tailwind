@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 
-import postsReducer from './postsSlice'
+// import postsReducer from './postsSlice'
 
-import usersReducer from './postNewSlice';
+import postsReducer from './postNewSlice';
+import userProfileReducer from './userProfileSlice';
 
 const rootReducer = combineReducers({
   // posts: postsReducer,
-  posts: usersReducer
+  posts: postsReducer,
+  userProfiles: userProfileReducer
 })
 
 export default rootReducer

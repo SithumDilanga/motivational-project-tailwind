@@ -1,8 +1,44 @@
+// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import postData from '../fakeApiData';
+
+// export const getUserProfiles = createAsyncThunk(
+//   "users/getUserProfiles",
+//   async (dispatch, getState) => {
+
+//     return await fetch("https://jsonplaceholder.typicode.com/users").then(
+//       (res) => res.json()
+//     );
+//   }
+// ); 
+
+// const userProfileSlice = createSlice({
+//   name: "userProfile",
+//   initialState: {
+//     userProfiles: [],
+//     status: null,
+//   },
+//   extraReducers: {
+//     [getUserProfiles.pending]: (state, action) => {
+//       state.status = "loading";
+//     },
+//     [getUserProfiles.fulfilled]: (state, action) => {
+//       state.status = "success";
+//       state.posts = action.payload;
+//     },
+//     [getUserProfiles.rejected]: (state, action) => {
+//       state.status = "failed";
+//     },
+//   },
+// });
+
+// export default userProfileSlice.reducer;
+
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postData from '../fakeApiData';
 
-export const getUserProfiles = createAsyncThunk(
-  "users/getUserProfiles",
+export const getUsers = createAsyncThunk(
+  "users/getUsers",
   async (dispatch, getState) => {
 
     return await fetch("https://jsonplaceholder.typicode.com/users").then(
@@ -11,24 +47,24 @@ export const getUserProfiles = createAsyncThunk(
   }
 ); 
 
-const userProfileSlice = createSlice({
-  name: "userProfile",
+const usersSlice = createSlice({
+  name: "users",
   initialState: {
-    userProfiles: [],
+    users: [],
     status: null,
   },
   extraReducers: {
-    [getUserProfiles.pending]: (state, action) => {
+    [getUsers.pending]: (state, action) => {
       state.status = "loading";
     },
-    [getUserProfiles.fulfilled]: (state, action) => {
+    [getUsers.fulfilled]: (state, action) => {
       state.status = "success";
-      state.posts = action.payload;
+      state.users = action.payload;
     },
-    [getUserProfiles.rejected]: (state, action) => {
+    [getUsers.rejected]: (state, action) => {
       state.status = "failed";
     },
   },
 });
 
-export default userProfileSlice.reducer;
+export default usersSlice.reducer;

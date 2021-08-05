@@ -8,7 +8,7 @@ import { MdPhotoCamera } from 'react-icons/md';
 import axios from "axios";
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserProfiles } from '../slices/userProfileSlice';
+import { getUsers } from '../slices/userProfileSlice';
 
 import ImgCrop from 'antd-img-crop';
 import { Upload } from 'antd';
@@ -20,11 +20,13 @@ function UserProfile() {
   const profilePicFile = useRef(null)
 	const coverPicFile = useRef(null)
 
+
 	const dispatch = useDispatch();
-	const { userProfiles, status } = useSelector((state) => state.userProfiles);
+  const { users, status } = useSelector((state) => state.users);
 
 	useEffect(() => {
-    dispatch(getUserProfiles())
+    // dispatch(fetchPosts())
+    dispatch(getUsers())
     .unwrap().then((originalPromiseResult) => {
       console.log(originalPromiseResult);
     }).catch((rejectedValueOrSerializedError) => {
@@ -32,18 +34,21 @@ function UserProfile() {
     });
   }, [dispatch])
 
-	const renderNames = () => {
+
+	// error handling & map successful query data 
+  const renderNames = () => {
     if (status === 'loading') return <p>Loading recipes...</p>
     if (status === 'failed') return <p>Cannot display recipes...</p>
 
-    return userProfiles.map(user => 
-      <h1>{user}</h1>  
-    )
+    return users.map(user => 
+			user.name === 'Leanne Graham' ? <h1>{user.name}</h1> : null	
+		);
 
     /*return posts.map((post, i) => 
       <h1 key={i}>{post.name}</h1>
     )*/
   }
+
 
 	  // ---------- profile image select and upload functions -----------
 
@@ -139,6 +144,7 @@ function UserProfile() {
 
 	return (
 		<div className="m-auto sm:w-8/12">
+			{/* <div>{renderNames()}</div> */}
 			<div className=" relative bg-white m-2 rounded-lg">
 				<div className="flex-col">
 					<div className="relative">
@@ -184,8 +190,8 @@ function UserProfile() {
 					</div>
 					<div>  {/* name and tag*/}
 						<div className="mt-12 ml-10 text-xl font-bold">
-							Jane Jone
-							{}
+							{/* Jane Jone */}
+							{renderNames()}
 						</div>
 						<div className="ml-9 text-sm">
 							@jane_jone

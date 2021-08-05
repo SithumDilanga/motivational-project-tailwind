@@ -3,12 +3,12 @@ import { combineReducers } from 'redux'
 // import postsReducer from './postsSlice'
 
 import postsReducer from './postNewSlice';
-import userProfileReducer from './userProfileSlice';
+import usersReducer from './userProfileSlice';
 
 const rootReducer = combineReducers({
   // posts: postsReducer,
   posts: postsReducer,
-  userProfiles: userProfileReducer
+  users: usersReducer
 })
 
 export default rootReducer

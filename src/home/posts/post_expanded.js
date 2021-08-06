@@ -38,10 +38,11 @@ function PostExapanded() {
 						<div className="relative">
 							<MdClose color="white" size="32" className="fixed m-2 cursor-pointer z-10" onClick={closePostExpanded} />
 							{/* TODO:find a way to contain images in the slider */}
-							<AwesomeSlider bullets = {false} > 
+							<AwesomeSlider bullets = {false} fillParent={false} > 
             	  <div data-src={location.state.postDetails.postImages[0]} 	className="" />
             	  <div data-src={location.state.postDetails.postImages[1]} />
             	</AwesomeSlider>
+
 						</div>
 					</div>
 					<div className="row-span-1 justify-self-center">

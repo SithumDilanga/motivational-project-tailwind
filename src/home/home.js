@@ -67,6 +67,7 @@ function NavBar({drawerClickHandler}) {
             </div>
           </button>
 
+          <Link to="/img-slider-test">
           <button className="flex items-center ml-4 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('notifications')}>
 
             <Notification style={{fontSize: 35, color:"rgba(107, 114, 128)"}} />
@@ -75,6 +76,7 @@ function NavBar({drawerClickHandler}) {
               Notifications
             </div>
           </button>
+          </Link>
 
           <button className="flex items-center ml-4 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('notifications')}>
 

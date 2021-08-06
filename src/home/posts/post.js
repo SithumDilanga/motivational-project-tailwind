@@ -16,7 +16,11 @@ import ReactionSection from './reaction_selection';
 import { Link } from 'react-router-dom';
 import PostExapanded from './post_expanded';
 import { useHistory } from "react-router-dom";
-import './post.css';
+// import './post.css';
+
+import {SliderData} from './image_slider_data';
+import {FaArrowAltCircleRight, FaArrowAltCircleLeft, FaCircle} from 'react-icons/fa';
+import './image_slider.css';
 
   
   function Post({postData}) {
@@ -43,6 +47,22 @@ import './post.css';
         state: {postDetails: postData}
       });
     }
+
+
+    const [current, setCurrent] = useState(0);
+	  const length = SliderData.length; 
+
+	  if(!Array.isArray(SliderData) || SliderData.length <= 0) {
+	  	return null;
+	  }
+
+	  const nextSlide = () => {
+	  	setCurrent(current === length - 1 ? 0 : current + 1);
+	  }
+
+	  const prevSlide = () => {
+	  	setCurrent(current === 0 ? length - 1 : current - 1);
+	  }
 
     return (
       <React.Fragment>
@@ -75,10 +95,31 @@ import './post.css';
             </div>
             <div className="mt-2">
               {/* <img src = {img1} className="" /> */}
-              <AwesomeSlider bullets = {false} className="cursor-pointer" > 
+              {/* <AwesomeSlider bullets = {false} className="cursor-pointer" > 
                 <div data-src={postData.postImages[0]} onClick={openPostExpanded} />
                 <div data-src={postData.postImages[1]} />
-              </AwesomeSlider>
+              </AwesomeSlider> */}
+
+              <div className="relative justify-center h-96 z-10">
+		          	<FaArrowAltCircleLeft size="28" color="white" className="absolute top-1/2 left-2 z-10 cursor-pointer" onClick={prevSlide} />
+		          	<FaArrowAltCircleRight size="28" color="white" className="absolute top-1/2 right-2 z-10 cursor-pointer" onClick={nextSlide} />
+		          	{SliderData.map((slide, index) => {
+		          		return (
+		          			<div className={`${index === current ? "slide active" : "slide"}`}>
+		          			{index === current && (<img src={slide.image} className="w-full h-96 object-cover object-center" />)}
+		          			</div>
+		          		);
+		          	}
+		          	)}
+		          	<div className="absolute bottom-1 left-0 right-0 flex justify-center gap-2">
+		           	{SliderData.map((slide, index) => {
+		          		return(
+		          			<FaCircle color={`${index === current ? "#ffa500" : ""}`} className="z-20" key={index} />
+		          		);
+		          	})}			
+		          </div>
+		          </div>
+
             </div>
             <div className="ml-4 mt-3 mb-4">
               <ReactionSection postReactionsData={postData.postReactions}/>

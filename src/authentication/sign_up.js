@@ -14,7 +14,7 @@ function SignUp() {
 
 		<div className="hidden sm:fixed sm:flex sm:items-center h-full mr-6 right-0">
 			{/* TODO: add redirect to '/' */}
-			<Link to="/home">
+			<Link to="/">
 				<div className="bg-white flex items-center hover:bg-brand-third hover:text-white 	py-3 px-3 rounded-lg shadow-md cursor-pointer">
 					<div className="text-xl font-semibold">
 						Explore

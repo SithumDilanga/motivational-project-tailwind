@@ -22,7 +22,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route exact path="/" component={Home} />
         <Route path="/daily-motivation" component={DailyMotivation}/>
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/sign-up" component={SignUp} />

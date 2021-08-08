@@ -114,7 +114,11 @@ function PostsContent() {
 
 	// error handling & map successful query data 
   const renderPosts = () => {
-    if (status === 'loading') return <p>Loading recipes...</p>
+    if (status === 'loading') return (
+      <div className="flex justify-center mt-8">
+        <PulseLoader size={10} color="#ffa500" />
+        {/* Loading... */}
+      </div>)
     if (status === 'failed') return <p>Cannot display recipes...</p>
 
     return posts.map(post => 

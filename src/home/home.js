@@ -78,6 +78,7 @@ function NavBar({drawerClickHandler}) {
           </button>
           </Link>
 
+          <Link to="/donate-us">
           <button className="flex items-center ml-4 px-2 hover:bg-gray-100   rounded-md" onClick={() => setSelectedNav('notifications')}>
 
             <FaHandHoldingHeart size="31" color="rgba(107, 114, 128)"/>
@@ -86,6 +87,7 @@ function NavBar({drawerClickHandler}) {
               Donate Us
             </div>
           </button>
+          </Link>
 
         </div>
 					<div className="userProfile">
@@ -150,11 +152,23 @@ function Home() {
   //     console.log('pop up!');
   //   }
 
+  function getPostsText() {
+    fetch('https://enigmatic-shore-01544.herokuapp.com/api/v1/posts').then(function(response) {
+      return response.json();
+    })
+    .then(function(details) {
+      // console.log(details['data'].posts);
+    });
+  }
+
   useEffect(() => {
+
+    getPostsText();
+
     // dispatch(fetchPosts())
     dispatch(getPosts())
     .unwrap().then((originalPromiseResult) => {
-      console.log(originalPromiseResult);
+      // console.log(originalPromiseResult);
     }).catch((rejectedValueOrSerializedError) => {
       console.log(rejectedValueOrSerializedError);
     });

@@ -12,6 +12,7 @@ import './App.css';
 
 import React from 'react'
 import Home from './home/home'
+import DonateUs from './home/posts/donate_us.js';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/post-expanded" component={PostExapanded} />
         <Route path="/img-slider-test" component={ImgSliderTest} />
-
+        <Route path="/donate-us" component={DonateUs} />
         <Home/>
 
       </Switch>

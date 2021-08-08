@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useEffect } from "react";
 import img1 from '../../assets/img1.jpg';
 import postData from '../../fakeApiData';
@@ -7,6 +7,8 @@ import ReactionSection from './reaction_selection';
 
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import { MdClose } from 'react-icons/md';
+import {FaArrowAltCircleRight, FaArrowAltCircleLeft, FaCircle} from 'react-icons/fa';
+import {SliderData} from './image_slider_data';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 
@@ -28,6 +30,25 @@ function PostExapanded() {
 		history.goBack();
   }
 
+	// -------- image slider -----------
+
+	const [current, setCurrent] = useState(0);
+	const length = location.state.postDetails.postImages.length; 
+
+	if(!Array.isArray(location.state.postDetails.postImages) || location.state.postDetails.postImages.length <= 0) {
+		return null;
+	}
+
+	const nextSlide = () => {
+		setCurrent(current === length - 1 ? 0 : current + 1);
+	}
+
+	const prevSlide = () => {
+		setCurrent(current === 0 ? length - 1 : current - 1);
+	}
+
+	// -------- End image slider -----------
+
   return (
     <div className="h-full w-full sm:grid sm:grid-cols-3">
       <div className="h-full sm:col-span-2 border-r border-black">
@@ -36,12 +57,32 @@ function PostExapanded() {
 						{/* image goes here */}
 						{/* <img src={img1} className="h-auto max-h-full m-auto" /> */}
 						<div className="relative">
-							<MdClose color="white" size="32" className="fixed m-2 cursor-pointer z-10" onClick={closePostExpanded} />
+							<MdClose color="white" size="32" className="fixed m-2 cursor-pointer z-20" onClick={closePostExpanded} />
 							{/* TODO:find a way to contain images in the slider */}
-							<AwesomeSlider bullets = {false} fillParent={false} > 
+							{/* <AwesomeSlider bullets = {false} fillParent={false} > 
             	  <div data-src={location.state.postDetails.postImages[0]} 	className="" />
             	  <div data-src={location.state.postDetails.postImages[1]} />
-            	</AwesomeSlider>
+            	</AwesomeSlider> */}
+
+							<div className="gridContainer relative justify-center z-10">
+		          		<FaArrowAltCircleLeft size="28" color="white" className="absolute top-1/2 left-2 z-10 cursor-pointer" onClick={prevSlide} />
+		          		<FaArrowAltCircleRight size="28" color="white" className="absolute top-1/2 right-2 z-10 cursor-pointer" onClick={nextSlide} />
+		          		{location.state.postDetails.postImages.map((slide, index) => {
+		          			return (
+		          				<div className={`photo ${index === current ? "slide active" : 	"slide"}`}>
+		          				{index === current && (<img src={slide} className="" />)}
+		          				</div>
+		          			);
+		          		}
+		          		)}
+		          		<div className="absolute bottom-1 left-0 right-0 flex justify-center gap-2">
+		          	 	{location.state.postDetails.postImages.map((slide, index) => {
+		          			return(
+		          				<FaCircle color={`${index === current ? "#ffa500" : ""}`} className="z-20" key={index} />
+		          			);
+		          		})}			
+		          	</div>
+		          </div>
 
 						</div>
 					</div>

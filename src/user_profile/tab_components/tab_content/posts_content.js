@@ -86,7 +86,8 @@ function PostsContent() {
       desc: {descText}
     }
 
-    axios.post('https://reqres.in/api/articles', desc)
+    //desc
+    axios.post('https://enigmatic-shore-01544.herokuapp.com/api/v1/posts', desc)
           .then(response => {
             if(response.status === 201) {
               setIsPostCompleted(true);

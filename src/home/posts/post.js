@@ -23,7 +23,7 @@ import {FaArrowAltCircleRight, FaArrowAltCircleLeft, FaCircle} from 'react-icons
 import './image_slider.css';
 
   
-  function Post({postData}) {
+  function Post({postData, isPostOwner}) {
 
     // const [isPostOpen, setIsPostOpen] = useState(false);
 

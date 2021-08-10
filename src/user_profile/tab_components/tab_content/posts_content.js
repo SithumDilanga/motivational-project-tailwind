@@ -3,6 +3,7 @@ import img1 from '../../../assets/img1.jpg';
 import { MdImage } from 'react-icons/md';
 import { MdCheckCircle } from 'react-icons/md';
 import axios from "axios";
+import Compressor from 'compressorjs';
 
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -41,10 +42,11 @@ function PostsContent() {
 
   // ---------- End Auto resizing textarea(vanilla JS implementation) ----------
 
-  // ---------- image select and upload functions -----------
+  // ---------- image select and upload functions & compressing -----------
 
   const [selectedImage, setSelectedImage] = useState(''); // to pick image
   const [imgData, setImgData] = useState(null); // to preview image
+  const [compressedImg, setCompressedImg] = useState(null); // compressed image 
 
   const imageSelectHandler = event => {
     setSelectedImage(event.target.files[0]);
@@ -58,18 +60,32 @@ function PostsContent() {
   }
 
   const imageUploaderHandler = () => {
-    const fd = new FormData();
-    fd.append('image', selectedImage, selectedImage.name);
-    axios.post('https://myapi/photos', fd, {
-      onUploadProgress: ProgressEvent => {
-        console.log('Upload Progress : ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+
+    // compressing the image a send the post request
+    new Compressor(selectedImage, {
+      quality: 0.8,
+      success: (compressedResult) => {
+
+        console.log(compressedResult);
+        setCompressedImg(compressedResult);
+
+        const fd = new FormData();
+        // fd.append('image', selectedImage, selectedImage.name);
+        fd.append('image', compressedResult, compressedResult.name);
+        axios.post('https://myapi/photos', fd, {
+          onUploadProgress: ProgressEvent => {
+            console.log('Upload Progress : ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+          }
+        }).then(res => {
+          console.log(res);
+        });
+
       }
-    }).then(res => {
-      console.log(res);
     });
   }
 
-  // ---------- End image select and upload functions -----------
+  // ---------- End image select and upload functions & compressing -----------
+
 
   // ---------- description text select and upload functions -----------
 

@@ -9,6 +9,7 @@ import { FaCrosshairs } from 'react-icons/fa';
 import { IoArrowRedoOutline } from 'react-icons/io5';
 import { MdBookmarkBorder } from 'react-icons/md';
 import { MdBookmark } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import ReactionSection from './reaction_selection';
@@ -85,6 +86,14 @@ import './image_slider.css';
               </div>
               <div className = "flex items-center gap-3 ml-auto mr-6">
                 {/* <Link to="/post-expanded"> */}
+
+                {isPostOwner ? 
+                <button className="bg-brand-third flex items-center gap-2 px-2 py-1 rounded-md hover:bg-brand-secondary">
+                  <MdClose size="18" />
+                  <div className="text-base font-normal">
+                    Delete
+                  </div>
+                </button> : null}
 
                    {isBookmarked ? 
                    <MdBookmark size="25" className="cursor-pointer" color="#ffa500" onClick={toggleBookmark} /> : 

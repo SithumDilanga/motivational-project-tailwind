@@ -44,44 +44,74 @@ function PostsContent() {
 
   // ---------- image select and upload functions & compressing -----------
 
-  const [selectedImage, setSelectedImage] = useState(''); // to pick image
-  const [imgData, setImgData] = useState(null); // to preview image
+  const [selectedImages, setSelectedImages] = useState([]); // to pick image
+  const [imgData, setImgData] = useState([]); // to preview image
   const [compressedImg, setCompressedImg] = useState(null); // compressed image 
 
   const imageSelectHandler = event => {
-    setSelectedImage(event.target.files[0]);
-    console.log(event.target.files[0]);
+    // converting event files object into a list to pass for compressing and uploading
+    setSelectedImages(Object.values(event.target.files));
+    console.log(event.target.files);
 
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      setImgData(reader.result);
+    /* Get files in array form */
+    const files = Array.from(event.target.files);
+
+    console.log(event.target.files[0]);
+    console.log(event.target.files[1]);
+
+    Promise.all(files.map(file => {
+      return (new Promise((resolve,reject) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', (ev) => { resolve(ev.target.result) });
+        reader.addEventListener('error', reject);
+        reader.readAsDataURL(file);
+      }));
+    }))
+    .then(images => {
+  
+      /* Once all promises are resolved, images will be an array of image URI's */
+      console.log(images)
+      setImgData(images)
+      // console.log(imgData);
+    }, err => {        
+      console.error(err);
     });
-    reader.readAsDataURL(event.target.files[0]);
+
+    // const reader = new FileReader();
+    // reader.addEventListener("load", () => {
+    //   setImgData(reader.result);
+    // });
+    // reader.readAsDataURL(event.target.files[1]);
+    // console.log(imgData);
   }
 
   const imageUploaderHandler = () => {
 
-    // compressing the image a send the post request
-    new Compressor(selectedImage, {
+    const fd = new FormData();
+
+    selectedImages.map((image) => {
+      // compressing the image a send the post request
+      console.log(image);
+      new Compressor(image, {
       quality: 0.8,
       success: (compressedResult) => {
+          console.log(compressedResult);
+          setCompressedImg(compressedResult);
 
-        console.log(compressedResult);
-        setCompressedImg(compressedResult);
-
-        const fd = new FormData();
-        // fd.append('image', selectedImage, selectedImage.name);
-        fd.append('image', compressedResult, compressedResult.name);
-        axios.post('https://myapi/photos', fd, {
-          onUploadProgress: ProgressEvent => {
-            console.log('Upload Progress : ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
-          }
-        }).then(res => {
-          console.log(res);
-        });
-
-      }
+          // fd.append('image', selectedImages, selectedImages.name);
+          fd.append('image', compressedResult, compressedResult.name);
+        }
+      });
     });
+
+    axios.post('https://myapi/photos', fd, {
+      onUploadProgress: ProgressEvent => {
+        console.log('Upload Progress : ' + Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%');
+      }
+    }).then(res => {
+      console.log(res);
+    });
+
   }
 
   // ---------- End image select and upload functions & compressing -----------
@@ -138,7 +168,7 @@ function PostsContent() {
     if (status === 'failed') return <p>Cannot display recipes...</p>
 
     return posts.map(post => 
-      <Post postData={post} />  
+      <Post postData={post} isPostOwner={true} />  
     )
   }
 
@@ -155,15 +185,19 @@ function PostsContent() {
             </div>
 
             {/* image picker */}
-            <input type="file" onChange={imageSelectHandler} className="hidden" ref=  {fileInput} />
+            <input type="file" onChange={imageSelectHandler} multiple accept="image/*" className="hidden" ref=  {fileInput} />
             <div className="bg-yellow-100 w-20 flex items-center mr-1 ml-1 px-2 py-1 my-2 rounded-md hover:shadow cursor-pointer sm:hover:shadow-none sm:ml-auto  sm:hover:bg-yellow-100 sm:bg-transparent" onClick={() => fileInput.current?. click()}>
               <MdImage size="24" color="#FFA500" />
               <div className="text-gray-500 font-medium ml-0.5">Photo</div>
             </div>
           </div>
 
+          {/* selectedImages[0] */}
+          {/* previewing selected images */}
           <div className="">
-            <img src={imgData} className={`w-full ${isPostCompleted ? "hidden" : ""}`} />
+            {imgData.map((image) => 
+              <img src={image} className={`w-full ${isPostCompleted ? "hidden" : ""}`} />
+            )}
           </div>
 
         </div>

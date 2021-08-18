@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postData from '../fakeApiData';
 import axios from "axios";
 
-export const getPosts = createAsyncThunk(
+/*export const getPosts = createAsyncThunk(
   "posts/getPosts",
   async (dispatch, getState) => {
 
@@ -20,17 +20,17 @@ export const getPosts = createAsyncThunk(
 
     // return await axios.get('https://enigmatic-shore-01544.herokuapp.com/api/v1/posts').then((response) => response);
   }
-); 
+); */
 
-// export const getPosts = createAsyncThunk(
-//   "posts/getPosts",
-//   async (dispatch, getState) => {
+export const getPosts = createAsyncThunk(
+  "posts/getPosts",
+  async (dispatch, getState) => {
 
-// 		const postsData = postData;
+		const postsData = postData;
 
-//     return await postData;
-//   }
-// );
+    return await postData;
+  }
+);
 
 const postsSlice = createSlice({
   name: "post",

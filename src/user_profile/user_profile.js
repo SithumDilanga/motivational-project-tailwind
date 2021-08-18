@@ -4,7 +4,7 @@ import img4 from '../assets/img4.jpg';
 import Tabs from "./tab_components/tabs"; 
 import TabContent from './tab_components/tab_content';
 import { useState, useRef } from "react";
-import { MdPhotoCamera } from 'react-icons/md';
+import { MdPhotoCamera, MdEdit } from 'react-icons/md';
 import axios from "axios";
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -198,7 +198,7 @@ function UserProfile() {
 						</div>
 					</div>
 					<div className="ml-9 mt-4 mr-2 text-sm sm:text-base">
-						Passionte learning new technologies. <section className="inline text-yellow-500 font-medium">#Motivation</section> comes from the heart and never give up. If you fail stand up and try again. <section className="inline text-yellow-500 font-medium">#NeverGiveUp</section>
+						Passionte learning new technologies. <section className="inline text-yellow-500 font-medium">#Motivation</section> comes from the heart and never give up. If you fail stand up and try again. <section className="inline text-yellow-500 font-medium">#NeverGiveUp</section> <sectio className="inline-block ml-1 px-1 cursor-pointer rounded-sm hover:bg-yellow-100" ><MdEdit /></sectio>
 					</div>
 					<div className="">
 						<Tabs />

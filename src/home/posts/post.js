@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import img1 from '../../assets/img1.jpg';
 // import img2 from './assets/img2.png';
 import { RiShareForwardLine } from 'react-icons/ri'
@@ -32,6 +32,32 @@ import './image_slider.css';
     //   setIsPostOpen(!isPostOpen);
     //   console.log('pop up!');
     // }
+
+    // ------------ image cache ----------------
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+      const images = postData.postImages;
+      cacheImages(images);
+    }, []);
+
+    const cacheImages = async (srcArray) => {
+      const promises = await srcArray.map((src) => {
+        return new Promise(function(resolve, reject) {
+          const img = new Image();
+
+          img.src = src;
+          img.onload = resolve();
+          img.onerror = reject();
+        });
+      });
+
+      await Promise.all(promises);
+      setIsLoading(false);
+    }
+
+    // ------------ End image cache ----------------
+
 
     const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -89,8 +115,8 @@ import './image_slider.css';
 
                 {isPostOwner ? 
                 <button className="bg-brand-third flex items-center gap-2 px-2 py-1 rounded-md hover:bg-brand-secondary">
-                  <MdClose size="18" />
-                  <div className="text-base font-normal">
+                  <MdClose className="w-3 h-4 sm:w-4 sm:h-4" />
+                  <div className="hidden text-base font-normal sm:block">
                     Delete
                   </div>
                 </button> : null}
@@ -121,7 +147,7 @@ import './image_slider.css';
               <div className="relative justify-center h-96 z-10">
 		          	<FaArrowAltCircleLeft size="28" color="white" className="absolute top-1/2 left-2 z-10 cursor-pointer" onClick={prevSlide} />
 		          	<FaArrowAltCircleRight size="28" color="white" className="absolute top-1/2 right-2 z-10 cursor-pointer" onClick={nextSlide} />
-		          	{postData.postImages.map((slide, index) => {
+		          	{isLoading ? (<div>loading...</div>) : postData.postImages.map((slide, index) => {
 		          		return (
 		          			<div className={`${index === current ? "slide active" : "slide"}`}>
 		          			{index === current && (<img src={slide} className="w-full h-96 object-cover object-center cursor-pointer" onClick={openPostExpanded} />)}

@@ -103,7 +103,7 @@ function NavBar({drawerClickHandler}) {
           	</div>
 						<div className="flex justify-end">
 							{isDropDownOpen && (
-								<div className="bg-gray-200 flex flex-col gap-y-1 absolute px-3 py-2 mt-1.5 rounded-lg shadow-lg z-20">
+								<div className="bg-gray-100 flex flex-col gap-y-1 absolute px-3 py-2 mt-1.5 rounded-lg shadow-lg z-20">
 									{dropDownItems.map(option => (
 										<div className="" onClick={onDropItemClicked(option)} key={option}>
 											<AccDropDown dropdownItem={option} />
@@ -122,7 +122,7 @@ function NavBar({drawerClickHandler}) {
 function AccDropDown({dropdownItem}) {
   return (
     <React.Fragment>
-      <div className="flex items-center bg-white z-20 mt-0.5 px-6 py-1 rounded-full hover:text-white hover:bg-brand-secondary cursor-pointer">
+      <div className="flex items-center z-20 mt-0.5 px-6 py-1 hover:text-white hover:bg-brand-secondary rounded-md cursor-pointer">
 		  	<div>
 		  		{dropdownItem === 'Your profile' && <MdPerson size="24" />}
 		  		{dropdownItem === 'Logout' && <FaSignOutAlt size="24" />}

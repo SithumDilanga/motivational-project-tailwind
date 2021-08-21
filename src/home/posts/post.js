@@ -7,9 +7,7 @@ import { FaBars } from 'react-icons/fa'
 import { FaBolt } from 'react-icons/fa'
 import { FaCrosshairs } from 'react-icons/fa';
 import { IoArrowRedoOutline } from 'react-icons/io5';
-import { MdBookmarkBorder } from 'react-icons/md';
-import { MdBookmark } from 'react-icons/md';
-import { MdClose } from 'react-icons/md';
+import { MdBookmarkBorder, MdDeleteForever, MdBookmark, MdClose } from 'react-icons/md';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import ReactionSection from './reaction_selection';
@@ -23,8 +21,27 @@ import {SliderData} from './image_slider_data';
 import {FaArrowAltCircleRight, FaArrowAltCircleLeft, FaCircle} from 'react-icons/fa';
 import './image_slider.css';
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
   
   function Post({postData, isPostOwner}) {
+
+    // ----------------- delete post pop up -----------------
+
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+
+    const closeDeletePopup = () => {
+      setIsOpenPopup(false);
+    }
+
+    // post delete alert dialog content styles
+    const contentStyle = { 
+      'border-radius': '8px',
+      'width': '40%'
+    };
+
+    // ----------------- End delete post pop up -----------------
 
     // const [isPostOpen, setIsPostOpen] = useState(false);
 
@@ -93,7 +110,7 @@ import './image_slider.css';
 	  	setCurrent(current === 0 ? length - 1 : current - 1);
 	  }
 
-    // -------- End image slider -----------
+    // -------- End image slider -----------    
 
     return (
       <React.Fragment>
@@ -114,12 +131,40 @@ import './image_slider.css';
                 {/* <Link to="/post-expanded"> */}
 
                 {isPostOwner ? 
-                <button className="bg-brand-third flex items-center gap-2 px-2 py-1 rounded-md hover:bg-brand-secondary">
+                <button className="bg-brand-third flex items-center gap-2 px-2 py-1 rounded-md hover:bg-brand-secondary" onClick={() => setIsOpenPopup(true)}>
                   <MdClose className="w-3 h-4 sm:w-4 sm:h-4" />
                   <div className="hidden text-base font-normal sm:block">
                     Delete
                   </div>
                 </button> : null}
+
+                {/* <button onClick={() => setIsOpenPopup(true)}>
+                  click
+                </button> */}
+
+                {/* Delete post popup confirm dialog */}
+
+                <Popup {...{contentStyle, }} modal closeOnDocumentClick lockScroll={true} open={isOpenPopup} onClose={closeDeletePopup} position="right center">
+                  <div className="flex flex-col ml-8 mt-6">
+                    <div className="text-xl font-bold">
+                      Are you sure want to delete this post ?
+                    </div>
+                    <div className="flex items-center gap-2 mt-5">
+                      <MdDeleteForever size="46" color="red"/>
+                      <div className="text-base font-medium mr-8">
+                        This will peremanently delete the post and this cannot be undone
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-1 mt-6 mb-3 mr-3">
+                      <button className="px-6 py-1 text-lg font-medium rounded-md hover:bg-yellow-200" onClick={closeDeletePopup}>
+                        Cancel
+                      </button>
+                      <button className="bg-brand-secondary px-8 py-1 text-white text-lg font-medium rounded-md hover:bg-brand-primary">
+                        Yes
+                      </button>
+                    </div>
+                  </div>
+                </Popup>
 
                    {isBookmarked ? 
                    <MdBookmark size="25" className="cursor-pointer" color="#ffa500" onClick={toggleBookmark} /> : 

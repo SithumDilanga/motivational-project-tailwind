@@ -63,9 +63,11 @@ function SignUp() {
 									By signing in, you agree to the Motivational <section className="text-yellow-500 inline"><a href="" className="hover:underline hover:text-yellow-500">Privacy Policy</a></section> & <section className="text-yellow-500 inline"><a hred="" className="hover:underline hover:text-yellow-500">Cookie Policy.</a></section> 
 								</div>
 
-								<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white text-xl font-bold">
-									Sign Up
-								</button>
+								<Link to="/otp-validation">
+									<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white 	text-xl font-bold">
+										Sign Up
+									</button>
+								</Link>
 
 								
 									<div className="mt-6 text-base">

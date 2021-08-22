@@ -38,7 +38,9 @@ import 'reactjs-popup/dist/index.css';
     // post delete alert dialog content styles
     const contentStyle = { 
       'border-radius': '8px',
-      'width': '40%'
+      'width': '500px',
+      // 'margin-left': '8px',
+      // 'margin-right': '8px'
     };
 
     // ----------------- End delete post pop up -----------------
@@ -143,23 +145,22 @@ import 'reactjs-popup/dist/index.css';
                 </button> */}
 
                 {/* Delete post popup confirm dialog */}
-
-                <Popup {...{contentStyle, }} modal closeOnDocumentClick lockScroll={true} open={isOpenPopup} onClose={closeDeletePopup} position="right center">
+                <Popup {...{contentStyle, }}  modal closeOnDocumentClick lockScroll={true} open={isOpenPopup} onClose={closeDeletePopup} position="right center">
                   <div className="flex flex-col ml-8 mt-6">
-                    <div className="text-xl font-bold">
+                    <div className="text-base font-bold md:text-xl">
                       Are you sure want to delete this post ?
                     </div>
                     <div className="flex items-center gap-2 mt-5">
-                      <MdDeleteForever size="46" color="red"/>
-                      <div className="text-base font-medium mr-8">
+                      <MdDeleteForever size="64" color="red"/>
+                      <div className="text-sm font-medium mr-8 md:text-base">
                         This will peremanently delete the post and this cannot be undone
                       </div>
                     </div>
                     <div className="flex justify-end gap-1 mt-6 mb-3 mr-3">
-                      <button className="px-6 py-1 text-lg font-medium rounded-md hover:bg-yellow-200" onClick={closeDeletePopup}>
+                      <button className="px-6 py-1 text-base font-medium rounded-md hover:bg-yellow-200 md:text-lg" onClick={closeDeletePopup}>
                         Cancel
                       </button>
-                      <button className="bg-brand-secondary px-8 py-1 text-white text-lg font-medium rounded-md hover:bg-brand-primary">
+                      <button className="bg-brand-secondary px-8 py-1 text-white text-base font-medium rounded-md hover:bg-brand-primary md:text-lg">
                         Yes
                       </button>
                     </div>

@@ -14,10 +14,11 @@ import React from 'react'
 import Home from './home/home'
 import DonateUs from './home/posts/donate_us.js';
 import OTPValidation from './authentication/otp_validation.js';
+import Error404Page from './home/404-page';
 
 
 function App() {
-
+  
   document.body.style = 'background: rgba(243, 244, 246);';
 
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/img-slider-test" component={ImgSliderTest} />
         <Route path="/donate-us" component={DonateUs} />
         <Route path="/otp-validation" component={OTPValidation} />
+        <Route path="/404" component={Error404Page} />
         <Home/>
 
       </Switch>

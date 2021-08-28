@@ -1,16 +1,94 @@
 import signUpImg from '../assets/sign-up-img.jpg';
 import { MdChevronRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import PulseLoader from "react-spinners/PulseLoader";
+import { signUp } from '../slices/aurhSlice';
 import './sign_up.css';
+import { useState } from 'react';
 
 function SignUp() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
 
+	const [email, setEmail] = useState('');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+
+	const dispatch = useDispatch();
+  const { auth, status } = useSelector((state) => state.auth);
+
+	let history = useHistory();
+
+	const signUpPostReq = () => {
+
+		dispatch(signUp({email: email, password: password, username: username, confirmPassword: confirmPassword}))
+    .unwrap().then((originalPromiseResult) => {
+      console.log(originalPromiseResult);
+    }).catch((rejectedValueOrSerializedError) => {
+      console.log(rejectedValueOrSerializedError);
+    });
+
+	}
+
+	const loginPostReq = () => {
+
+			console.log('bitch');
+				axios.post('https://sheltered-meadow-13070.herokuapp.com/api/v1/users/login', {
+			"email" : "test2@user.com",
+			"password": "pass1234"
+			}).then((err, response) => {
+				console.log(err);
+				console.log(response);
+			});
+
+	}
+
+	const renderStates = () => {
+		if (status === 'loading') return (
+      <div className="flex justify-center mt-8">
+        <PulseLoader size={10} color="#ffa500" />
+        {console.log('loading')}
+      </div>)
+    if (status === 'failed') return <p>Cannot display recipes...</p> 
+
+		if(auth.status === 'success') return (
+			<div className="bg-gray-100 rounded-md mt-2 py-2 px-12">
+				<div className="text-brand-green text-center text-xl font-bold">
+					Sign up Completed!
+				</div>
+			</div>
+		)
+
+		if(auth.status === 'fail') return (
+			<div className="bg-gray-100 rounded-md mt-2 py-2 px-3">
+				<div className="text-red-500 text-center text-xl font-bold">
+					Couldn't Sign up!
+				</div>
+				<div className="text-red-500 text-center">
+					{auth.message}
+				</div>
+			</div>
+		)
+
+	}
+
+	function pushToHome() {
+		// history.push({
+		// 	pathname: '/',
+		// });
+		history.replace({
+			pathname: '/'
+		})
+	}
+
 	return (
 		<div>
-
 			{/* explore button in desktop screens */}
+			{auth.status === 'success' ? pushToHome() : null}
 
 		<div className="hidden sm:fixed sm:flex sm:items-center h-full mr-6 right-0">
 			{/* TODO: add redirect to '/' */}
@@ -44,17 +122,30 @@ function SignUp() {
 
 								<div className="px-3 sm:px-0">
 									<div className="text-gray-700 text-base">Email</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text"/>
+									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text" onChange={
+										event => setEmail(event.target.value)
+									}/>
 								</div>
 
 								<div className="px-3 sm:px-0">
 									<div className="mt-3 text-gray-700 text-base">Username</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text"/>
+									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text" onChange={
+										event => setUsername(event.target.value)
+									}/>
 								</div>
 
 								<div className="px-3 sm:px-0">
 									<div className="mt-3 text-gray-700 text-base">Password</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="Password"/>
+									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="Password" onChange={
+										event => setPassword(event.target.value)
+									}/>
+								</div>
+
+								<div className="px-3 sm:px-0">
+									<div className="mt-3 text-gray-700 text-base">Confirm Password</div>
+									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="Password" onChange={
+										event => setConfirmPassword(event.target.value)
+									}/>
 								</div>
 								
 							</div>
@@ -63,12 +154,18 @@ function SignUp() {
 									By signing in, you agree to the Motivational <section className="text-yellow-500 inline"><a href="" className="hover:underline hover:text-yellow-500">Privacy Policy</a></section> & <section className="text-yellow-500 inline"><a hred="" className="hover:underline hover:text-yellow-500">Cookie Policy.</a></section> 
 								</div>
 
-								<Link to="/otp-validation">
-									<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white 	text-xl font-bold">
+								{/* <Link to="/otp-validation"> */}
+
+									<button type="button" className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white 	text-xl font-bold" onClick={() => {
+										signUpPostReq()
+									}}>
 										Sign Up
 									</button>
-								</Link>
-
+								{/* </Link> */}
+									{renderStates()}
+									{/* {
+										auth.status === 'success' ? <div>Sign up Completed!</div> : <div>auth</div>
+									} */}
 								
 									<div className="mt-6 text-base">
 										Already have an Account? 

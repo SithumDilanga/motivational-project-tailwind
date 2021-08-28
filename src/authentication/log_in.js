@@ -1,9 +1,28 @@
 import signUpImg from '../assets/sign-up-img.jpg';
+import axios from "axios";
 import { Link } from 'react-router-dom';
 
 function Login() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
+
+	const loginPostReq = () => {
+		console.log('bitch');
+		// axios.post('https://sheltered-meadow-13070.herokuapp.com/api/v1/users/login', {
+    // 	email : "test@user.com",
+    // 	password : "pass12345",
+		// }).then(response => {
+		// 	console.log(response);
+		// });
+
+		// axios.get('https://sheltered-meadow-13070.herokuapp.com/api/v1/posts?page=3&limit=5',).then(response => {
+		// 	console.log(response);
+		// });
+
+		fetch("https://sheltered-meadow-13070.herokuapp.com/api/v1/posts?page=3&limit=5").then(response => {
+				console.log(response);
+		 });
+	}
 
 	return (
 		<div className="bg-white mt-8 m-auto sm:w-8/12 w-11/12 rounded-lg shadow-lg">
@@ -41,7 +60,9 @@ function Login() {
 									Forgotten Password ?
 								</div>
 
-								<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white text-xl font-bold">
+								<button className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white text-xl font-bold" onClick={() => {
+									loginPostReq();
+								}}>
 									Log In
 								</button>
 

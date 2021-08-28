@@ -8,6 +8,7 @@ module.exports = {
           primary: "#ffa500",
           secondary: "#ffae1a",
           third: "#ffc04d",
+          green: "#4BB543"
         },
         backdrop: "rgba(0, 0, 0, 0.5)"
       }

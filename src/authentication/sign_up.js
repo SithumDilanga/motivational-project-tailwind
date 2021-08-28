@@ -34,19 +34,6 @@ function SignUp() {
 
 	}
 
-	const loginPostReq = () => {
-
-			console.log('bitch');
-				axios.post('https://sheltered-meadow-13070.herokuapp.com/api/v1/users/login', {
-			"email" : "test2@user.com",
-			"password": "pass1234"
-			}).then((err, response) => {
-				console.log(err);
-				console.log(response);
-			});
-
-	}
-
 	const renderStates = () => {
 		if (status === 'loading') return (
       <div className="flex justify-center mt-8">

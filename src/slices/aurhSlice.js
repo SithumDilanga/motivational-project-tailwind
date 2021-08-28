@@ -74,6 +74,17 @@ const authSlice = createSlice({
     [signUp.rejected]: (state, action) => {
       state.status = "failed";
     },
+		[logIn.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [logIn.fulfilled]: (state, action) => {
+      state.status = "success";
+      state.auth = action.payload;
+			// console.log(action.payload);
+    },
+    [logIn.rejected]: (state, action) => {
+      state.status = "failed";
+    },
   },
 });
 

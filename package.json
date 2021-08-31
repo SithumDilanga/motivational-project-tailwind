@@ -12,6 +12,7 @@
     "antd-img-crop": "^3.14.3",
     "axios": "^0.21.1",
     "compressorjs": "^1.0.7",
+    "formik": "^2.2.9",
     "react": "^17.0.2",
     "react-awesome-slider": "^4.1.0",
     "react-dom": "^17.0.2",
@@ -22,7 +23,8 @@
     "react-spinners": "^0.11.0",
     "reactjs-popup": "^2.0.5",
     "vite": "^2.4.1",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "craco start",

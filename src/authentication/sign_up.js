@@ -9,6 +9,10 @@ import { signUp } from '../slices/aurhSlice';
 import './sign_up.css';
 import { useState } from 'react';
 
+// import { useFormik } from 'formik';
+import { useFormik, Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+
 function SignUp() {
 
 	document.body.style = 'background: rgba(243, 244, 246);';
@@ -72,6 +76,29 @@ function SignUp() {
 		})
 	}
 
+		// const formik = useFormik({
+		// 	initialValues:{
+		// 		Username:'',
+		// 		Email:'',
+		// 		Password:''
+		// 	},
+		// 	validationSchema: yup.object({
+		// 		Username: yup.string()
+		// 			.max(20, 'Name should not exceed 20 Characters')
+		// 			.required('Please Enter Employee Name'),	
+		// 		Email: yup.string()	
+		// 			.email('Invalid email address')
+		// 			.required('Please Enter Email Id'),
+		// 		Password: yup.string()
+		// 			.min(8, 'Password must be more than 8 characters')
+		// 			.required('Please enter password')
+		// 	}),
+		// 	onSubmit: values => { 
+		// 		alert(JSON.stringify(values));
+		// 	}
+		// });
+
+
 	return (
 		<div>
 			{/* explore button in desktop screens */}
@@ -104,35 +131,105 @@ function SignUp() {
 					</div>
 				</div>
 				<div className="grid grid-rows-1 grid-flow-col text-lg">
-						<form>
-							<div className="flex-col sm:ml-12">
+						
+						<Formik initialValues= {{
+
+    					  Username: '',
+    					  Email: '',
+								Password: '',
+								ConfirmPassword: ''
+
+    					}} validationSchema = { yup.object({
+
+    					  Username: yup.string()
+									.max(20,'Name should not exceed 20 Characters')
+									.required('Please Enter Username'),
+
+								Email: yup.string()
+    					    .email('Invalid email address')
+    					    .required('Please Enter Email'),
+
+								Password: yup.string()
+									.min(8, 'Password must be more than 8 characters')
+    					    .required('Please Enter Password'),
+
+								ConfirmPassword: yup.string()
+									.min(8, 'Password must be more than 8 characters')
+    					  	.required('Please Enter Confirm Password')
+									.when("Password", {
+										is: val => (val && val.length > 0 ? true : false),
+										then: yup.string().oneOf(
+											[yup.ref("Password")],
+											"Both Password must be matched"
+										)
+									})
+							
+    					})} onSubmit= {values => {
+    					  alert(JSON.stringify(values));
+    					}}>
+
+							{({ isSubmitting, isValid, dirty }) => (
+								<div>
+									<div className="flex-col sm:ml-12">
 
 								<div className="px-3 sm:px-0">
 									<div className="text-gray-700 text-base">Email</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text" onChange={
-										event => setEmail(event.target.value)
-									}/>
+									<Field 
+										className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 	focus:outline-none focus:border-black sm:w-4/5" 
+										type="text" 
+										name="Email" 
+										onKeyUp={
+											event => setEmail(event.target.value)
+										}
+									 ></Field>
+									<div className="text-red-500 text-sm font-medium">
+									<ErrorMessage name="Email"></ErrorMessage>
+									</div>
 								</div>
 
 								<div className="px-3 sm:px-0">
 									<div className="mt-3 text-gray-700 text-base">Username</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="text" onChange={
-										event => setUsername(event.target.value)
-									}/>
+									<Field 
+										className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 	focus:outline-none focus:border-black sm:w-4/5" 
+										type="text" 
+										name="Username" 
+										onKeyUp={
+											event => setUsername(event.target.value)
+										}
+									></Field>
+									<div className="text-red-500 text-sm font-medium">
+										<ErrorMessage name="Username"></ErrorMessage>
+									</div>
 								</div>
 
 								<div className="px-3 sm:px-0">
 									<div className="mt-3 text-gray-700 text-base">Password</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="Password" onChange={
-										event => setPassword(event.target.value)
-									}/>
+									<Field 
+										className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 	focus:outline-none focus:border-black sm:w-4/5" 
+										type="Password" 
+										name="Password" 
+										onKeyUp={
+											event => setPassword(event.target.value)
+										}
+									></Field>
+									<div className="text-red-500 text-sm font-medium">
+										<ErrorMessage name="Password"></ErrorMessage>
+									</div>
 								</div>
 
 								<div className="px-3 sm:px-0">
 									<div className="mt-3 text-gray-700 text-base">Confirm Password</div>
-									<input className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 focus:outline-none focus:border-black sm:w-4/5" type="Password" onChange={
-										event => setConfirmPassword(event.target.value)
-									}/>
+									<Field 
+										className="mt-2 px-2 py-1 w-full rounded-md border border-gray-500 	focus:outline-none focus:border-black sm:w-4/5" 
+										type="Password" 
+										name="ConfirmPassword" 
+										onKeyUp={
+											event => setConfirmPassword(event.target.value)
+										}
+									></Field>
+									<div className="text-red-500 text-sm font-medium">
+										<ErrorMessage name="ConfirmPassword"></ErrorMessage>
+									</div>
 								</div>
 								
 							</div>
@@ -143,16 +240,22 @@ function SignUp() {
 
 								{/* <Link to="/otp-validation"> */}
 
-									<button type="button" className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white 	text-xl font-bold" onClick={() => {
+									<button type="button" className="bg-yellow-500 px-12 py-2 mt-6 rounded-full text-white 	text-xl font-bold" disabled={ !isValid || !dirty} onClick={() => {
 										signUpPostReq()
 									}}>
 										Sign Up
 									</button>
 								{/* </Link> */}
 									{renderStates()}
-									{/* {
-										auth.status === 'success' ? <div>Sign up Completed!</div> : <div>auth</div>
-									} */}
+
+									{/* if all fields are not filled correctly this message shows */}
+									{!isValid ? 
+									<div className="bg-gray-100 rounded-md mt-2 py-2 px-2">
+										<div className="text-red-500 text-center">
+											Fill all the required fields
+										</div>
+									</div>
+									 : null}
 								
 									<div className="mt-6 text-base">
 										Already have an Account? 
@@ -164,7 +267,11 @@ function SignUp() {
 									</div>
 								<img src={signUpImg} className="sm:hidden" />
 							</div>
-						</form>
+								</div>
+							)}
+
+						</Formik>
+
 						<img src={signUpImg} className="hidden sm:block w-80 justify-self-end" />
 					</div>
 			</div>
